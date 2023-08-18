@@ -1,8 +1,8 @@
 ---
+import BaseLayout from "$layouts/BaseLayout.astro";
 import { contentfulClient } from "$lib/contentful";
 import type { BlogPost } from "$lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import BaseLayout from "$layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
   const entries = await contentfulClient.getEntries<BlogPost>({
@@ -26,7 +26,7 @@ export async function getStaticPaths() {
 const { content, title, date, cover, destination } = Astro.props;
 ---
 
-<BaseLayout title={title} description={title}>
+<BaseLayout title={title}>
   <main>
     <h1>{title}</h1>
     <time>{date}</time>

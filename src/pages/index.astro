@@ -1,4 +1,5 @@
 ---
+import BaseLayout from "$layouts/BaseLayout.astro";
 import { contentfulClient } from "$lib/contentful";
 import type { BlogPost } from "$lib/contentful";
 
@@ -17,26 +18,17 @@ const posts = entries.items.map(item => {
 });
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Blog</h1>
+<BaseLayout>
+  <h1>Blog</h1>
 
-    <ul>
-      {posts.map(post => (
-        <li>
-          <a href={`/posts/${post.slug}/`}>
-            <h2>{post.title}</h2>
-          </a>
-          <time>{post.date}</time>
-        </li>
-      ))}
-    </ul>
-	</body>
-</html>
+  <ul>
+    {posts.map(post => (
+      <li>
+        <a href={`/posts/${post.slug}/`}>
+          <h2>{post.title}</h2>
+        </a>
+        <time>{post.date}</time>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
