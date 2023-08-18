@@ -4,9 +4,20 @@ export interface BlogPost {
   contentTypeId: "blogPost",
   fields: {
     title: EntryFieldTypes.Text,
+    date: EntryFieldTypes.Date,
     slug: EntryFieldTypes.Text,
     content: EntryFieldTypes.RichText,
-    date: EntryFieldTypes.Date,
+    cover: EntryFieldTypes.AssetLink,
+    destination: EntryFieldTypes.EntryLink<Destination>,
+  }
+}
+
+export interface Destination {
+  contentTypeId: "destination",
+  fields: {
+    name: EntryFieldTypes.Text,
+    slug: EntryFieldTypes.Text,
+    cover: EntryFieldTypes.AssetLink,
   }
 }
 

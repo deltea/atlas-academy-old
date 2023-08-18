@@ -2,6 +2,7 @@
 import { contentfulClient } from "$lib/contentful";
 import type { BlogPost } from "$lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import BaseLayout from "$layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
   const entries = await contentfulClient.getEntries<BlogPost>({
@@ -14,25 +15,23 @@ export async function getStaticPaths() {
       title: item.fields.title,
       content: documentToHtmlString(item.fields.content),
       date: new Date(item.fields.date).toLocaleDateString(),
+      cover: item.fields.cover,
+      destination: item.fields.destination,
     },
   }));
 
   return pages;
 }
 
-const { content, title, date } = Astro.props;
+const { content, title, date, cover, destination } = Astro.props;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-  </head>
-  <body>
+<BaseLayout title={title} description={title}>
+  <main>
     <h1>{title}</h1>
     <time>{date}</time>
+    <img src={cover.fields.file.url} alt={cover.fields.description}>
     <article set:html={content} />
-  </body>
-</html>
+    <small>{destination.fields.name}</small>
+  </main>
+</BaseLayout>
