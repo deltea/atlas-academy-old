@@ -1,5 +1,5 @@
 ---
-import Navbar from "$components/Navbar.astro";
+import Navbar from "$components/Navbar.svelte";
 
 import "@fontsource/jost";
 import "$styles/global.css";
@@ -22,8 +22,10 @@ const {
   <body>
     <Navbar />
 
+    <!-- Probably page cover without margin -->
     <slot name="before-content" />
 
+    <!-- Main content with margin -->
     <main class="m-md">
       <slot />
     </main>
