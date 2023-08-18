@@ -1,0 +1,11 @@
+---
+const { cover, center = false } = Astro.props;
+---
+
+<div
+  class={`h-screen w-full bg-cover bg-center dim-image flex px-sm ${center && "justify-center"}`}
+  style={`background-image: url(${cover});`}>
+  <div class="absolute bottom-36 text-3xl">
+    <slot />
+  </div>
+</div>

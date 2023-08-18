@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "$layouts/BaseLayout.astro";
+import PageCover from "$components/PageCover.astro";
+
 import { contentfulClient } from "$lib/contentful";
 import type { BlogPost } from "$lib/contentful";
 
@@ -19,6 +21,10 @@ const posts = entries.items.map(item => {
 ---
 
 <BaseLayout>
+  <PageCover center cover="/covers/home.webp" slot="before-content">
+    <h1>義大利 ITALY</h1>
+  </PageCover>
+
   <h1>Blog</h1>
 
   <ul>

@@ -1,19 +1,31 @@
 ---
+import Navbar from "$components/Navbar.astro";
+
+import "@fontsource/jost";
+import "$styles/global.css";
+
 const {
   title = "Atlas Academy",
   description = "The Atlas Academy blog",
 } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="bg-white">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description}>
+    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
   </head>
   <body>
-    <slot />
+    <Navbar />
+
+    <slot name="before-content" />
+
+    <main class="m-md">
+      <slot />
+    </main>
   </body>
 </html>

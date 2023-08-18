@@ -1,0 +1,30 @@
+---
+import { Icon } from "astro-icon";
+---
+
+<nav class="flex justify-between fixed w-full h-navbar p-xs items-center">
+  <!-- Title -->
+  <header class="font-fancy text-3xl">世界是学校</header>
+
+  <!-- Navigation -->
+  <div class="emphasis text-xs space-x-6">
+    <a href="/">Home</a>
+    <a href="/destinations">Destinations</a>
+    <a href="/blog">Blog</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/about">About</a>
+  </div>
+
+  <!-- Socials -->
+  <div class="space-x-2">
+    <a href="https://www.facebook.com/worldschool.atlas.academy">
+      <Icon name="mdi:facebook" class="w-6 h-6 inline" />
+    </a>
+    <a href="https://open.spotify.com/show/7xuJTB7kCfKB0JVBkgW4k3">
+      <Icon name="mdi:spotify" class="w-6 h-6 inline" />
+    </a>
+    <a href="https://podcasts.apple.com/us/podcast/%E4%B8%96%E7%95%8C%E6%98%AF%E5%AD%B8%E6%A0%A1-worldschooling/id1646258789" class="w-6 h-6">
+      <Icon name="fa:podcast" class="w-6 h-6 inline" />
+    </a>
+  </div>
+</nav>

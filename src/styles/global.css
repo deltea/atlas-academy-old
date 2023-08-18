@@ -1,0 +1,27 @@
+html {
+  color: white;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.dim-image {
+  background-color: hsl(0, 0%, 84%);
+  background-blend-mode: multiply;
+}
+
+.emphasis {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "ZhanKu";
+  src: url(/fonts/ZhanKu.ttf);
+}
