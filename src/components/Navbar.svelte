@@ -8,12 +8,16 @@
   }
 
   onMount(() => {
+    checkPageTop();
+
     document.addEventListener("scroll", checkPageTop);
     return () => document.removeEventListener("scroll", checkPageTop);
   });
 </script>
 
-<nav class={`flex justify-between fixed w-full z-50 p-xs items-center ${atPageTop ? "text-white bg-transparent h-navbar" : "text-neutral bg-white h-small-navbar"} duration-500`}>
+<nav class={`flex justify-between fixed w-full z-50 p-xs items-center duration-500
+  ${atPageTop ? "text-white bg-transparent h-navbar" : "text-neutral bg-white h-small-navbar shadow-lg"}
+  `}>
   <!-- Title -->
   <header class={`font-fancy group ${atPageTop ? "text-3xl" : "text-2xl"} duration-100`}>
     <a class="group-hover:-top-1.5 top-0 relative duration-150" href="/">世界是学校</a>
