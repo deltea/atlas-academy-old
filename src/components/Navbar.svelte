@@ -1,11 +1,26 @@
-<nav class="flex justify-between fixed w-full h-navbar z-50 p-xs items-center text-white">
+<script lang="ts">
+  import { onMount } from "svelte";
+
+  let atPageTop = true;
+
+  function checkPageTop() {
+    atPageTop = window.scrollY === 0;
+  }
+
+  onMount(() => {
+    document.addEventListener("scroll", checkPageTop);
+    return () => document.removeEventListener("scroll", checkPageTop);
+  });
+</script>
+
+<nav class={`flex justify-between fixed w-full z-50 p-xs items-center ${atPageTop ? "text-white bg-transparent h-navbar" : "text-neutral bg-white h-small-navbar"} duration-500`}>
   <!-- Title -->
-  <header class="font-fancy text-3xl group">
+  <header class={`font-fancy group ${atPageTop ? "text-3xl" : "text-2xl"} duration-100`}>
     <a class="group-hover:-top-1.5 top-0 relative duration-150" href="/">世界是学校</a>
   </header>
 
   <!-- Navigation -->
-  <div class="emphasis text-xs space-x-6">
+  <div class="emphasis text-xs space-x-6 duration-200">
     <a href="/">Home</a>
     <a href="/destinations">Destinations</a>
     <a href="/blog">Blog</a>
