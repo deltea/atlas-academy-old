@@ -1,0 +1,27 @@
+---
+import PageCover from "$components/PageCover.astro";
+import BaseLayout from "$layouts/BaseLayout.astro";
+import type { Destination } from "$lib/contentful";
+import { contentfulClient } from "$lib/contentful";
+
+const posts = await contentfulClient.getEntries<Destination>({
+  content_type: "destination",
+});
+console.log(posts.items[0].fields);
+---
+
+<BaseLayout title="Destinations">
+  <PageCover center cover="/covers/home.webp" slot="before-content">
+    <h1 class="text-4xl emphasis">Destinations</h1>
+  </PageCover>
+
+  <ul class="text-neutral">
+    {posts.items.map(item => (
+      <li>
+        <a href={`/destinations/${item.fields.slug}`}>
+          <h1>{item.fields.name}</h1>
+        </a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

@@ -1,4 +1,5 @@
 ---
+import PageCover from "$components/PageCover.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import { contentfulClient } from "$lib/contentful";
 import type { BlogPost } from "$lib/contentful";
@@ -13,6 +14,7 @@ export async function getStaticPaths() {
     params: { slug: item.fields.slug },
     props: {
       title: item.fields.title,
+      type: item.fields.type,
       content: documentToHtmlString(item.fields.content),
       date: new Date(item.fields.date).toLocaleDateString(),
       cover: item.fields.cover,
@@ -27,9 +29,14 @@ const { content, title, date, cover, destination } = Astro.props;
 ---
 
 <BaseLayout title={title}>
-  <h1>{title}</h1>
-  <time>{date}</time>
-  <img src={cover.fields.file.url} alt={cover.fields.description}>
+  <PageCover center cover={cover.fields.file.url} slot="before-content">
+    <div class="text-lg">
+      <time class="inline">{date}</time>
+      <span>|</span>
+      <a href={`/destinations/${destination.fields.slug}`} class="inline">{destination.fields.slug}</a>
+    </div>
+    <h1>{title}</h1>
+  </PageCover>
+
   <article set:html={content} />
-  <small>{destination.fields.name}</small>
 </BaseLayout>

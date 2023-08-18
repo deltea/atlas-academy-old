@@ -4,8 +4,9 @@ export interface BlogPost {
   contentTypeId: "blogPost",
   fields: {
     title: EntryFieldTypes.Text,
-    date: EntryFieldTypes.Date,
     slug: EntryFieldTypes.Text,
+    type: EntryFieldTypes.Text,
+    date: EntryFieldTypes.Date,
     content: EntryFieldTypes.RichText,
     cover: EntryFieldTypes.AssetLink,
     destination: EntryFieldTypes.EntryLink<Destination>,
@@ -18,6 +19,9 @@ export interface Destination {
     name: EntryFieldTypes.Text,
     slug: EntryFieldTypes.Text,
     cover: EntryFieldTypes.AssetLink,
+    description: EntryFieldTypes.RichText,
+    continent: EntryFieldTypes.Text,
+    heading: EntryFieldTypes.Text
   }
 }
 

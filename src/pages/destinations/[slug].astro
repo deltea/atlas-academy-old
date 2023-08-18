@@ -1,0 +1,67 @@
+---
+import BaseLayout from "$layouts/BaseLayout.astro";
+import { BlogPost, contentfulClient } from "$lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { Destination } from "$lib/contentful";
+import PageCover from "$components/PageCover.astro";
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<Destination>({
+    content_type: "destination",
+  });
+
+  const pages = entries.items.map(item => ({
+    params: { slug: item.fields.slug },
+    props: {
+      name: item.fields.name,
+      cover: item.fields.cover,
+      heading: item.fields.heading,
+      continent: item.fields.continent,
+      description: documentToHtmlString(item.fields.description),
+    },
+  }));
+
+  return pages;
+}
+
+const { name, cover, heading, continent, description } = Astro.props;
+const { slug } = Astro.params;
+
+const posts = await contentfulClient.getEntries<BlogPost>({
+  content_type: "blogPost",
+  "fields.destination.sys.contentType.sys.id": "destination",
+  "fields.destination.fields.slug[match]": slug,
+});
+
+---
+
+<BaseLayout title={name}>
+  <PageCover center cover={cover.fields.file.url} slot="before-content">
+    <h1>{name}</h1>
+  </PageCover>
+
+  <div class="space-y-sm">
+    <section>
+      <h1 class="lowercase tracking-widest font-semibold text-neutral-500">{name}</h1>
+      <hr class="border-indigo-600 border-[1.5px] w-sm my-4">
+      <div class="space-y-2">
+        <h2 class="font-bold text-2xl">{heading}</h2>
+        <article set:html={description} />
+      </div>
+    </section>
+
+    <section>
+      <h1 class="lowercase tracking-widest font-semibold text-neutral-500">all posts</h1>
+      <hr class="border-indigo-600 border-[1.5px] w-sm my-4">
+      <ul>
+        {posts.items.map(item => (
+          <li>
+            <a href={`/posts/${item.fields.slug}`}>
+              <h1>{item.fields.title}</h1>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
