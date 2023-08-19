@@ -1,0 +1,71 @@
+---
+import BaseLayout from "$layouts/BaseLayout.astro";
+import PageCover from "$components/PageCover.astro";
+import { contentfulClient } from "$lib/contentful";
+import type { BlogPost } from "$lib/contentful";
+
+const posts = await contentfulClient.getEntries<BlogPost>({
+  content_type: "blogPost",
+});
+
+const leftPosts = posts.items.filter((_, i) => i % 2 === 0);
+const rightPosts = posts.items.filter((_, i) => i % 2 !== 0);
+---
+
+<BaseLayout title="Blog">
+  <PageCover center cover="/covers/blog.webp" slot="before-content">
+    <h1 class="emphasis">Blog</h1>
+  </PageCover>
+
+  <h1 class="sticky bg-white p-6 top-small-navbar text-center z-20">2022</h1>
+
+  <section class="flex justify-between">
+    <ul class="w-1/2 mt-[4rem]">
+      {leftPosts.map(post => (
+        <li>
+          <a href={`/posts/${post.fields.slug}`} class="flex flex-col h-52 group relative items-end text-right">
+            <div class="mx-sm">
+              <h1 class="emphasis text-neutral-400 group-hover:text-neutral duration-300">
+                {post.fields.date}
+              </h1>
+              <h2 class="text-neutral-400 group-hover:text-neutral duration-300">{post.fields.title}</h2>
+              <img src={post.fields.cover?.fields.file?.url}
+                alt={post.fields.cover?.fields.title}
+                class="h-20 rounded-md mt-2 brightness-75 group-hover:brightness-100 group-hover:scale-110 duration-300 inline-block float-right">
+            </div>
+
+            <div class="border-neutral-400 group-hover:border-neutral border-2 bg-white w-2 h-2 rotate-45 absolute -right-1 z-10 duration-300 top-2"></div>
+            <div class="border-neutral-400 group-hover:border-neutral border w-10 absolute top-3 duration-300"></div>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="relative">
+      <div class="rounded-full w-2 h-2 bg-neutral-400 absolute left-1/2 -translate-x-1/2"></div>
+      <div class="h-full border border-neutral-400 w-0"></div>
+      <div class="rounded-full w-2 h-2 bg-neutral-400 absolute left-1/2 -translate-x-1/2"></div>
+    </div>
+
+    <ul class="w-1/2 mt-[calc(4rem+6rem)]">
+      {rightPosts.map(post => (
+        <li>
+          <a href={`/posts/${post.fields.slug}`} class="flex flex-col h-52 group relative items-start">
+            <div class="mx-sm">
+              <h1 class="emphasis text-neutral-400 group-hover:text-neutral duration-300">
+                {post.fields.date}
+              </h1>
+              <h2 class="text-neutral-400 group-hover:text-neutral duration-300">{post.fields.title}</h2>
+              <img src={post.fields.cover?.fields.file?.url}
+                alt={post.fields.cover?.fields.title}
+                class="h-20 rounded-md mt-2 brightness-75 group-hover:brightness-100 group-hover:scale-110 duration-300">
+            </div>
+
+            <div class="border-neutral-400 group-hover:border-neutral border-2 bg-white w-2 h-2 rotate-45 absolute -left-1 z-10 duration-300 top-2"></div>
+            <div class="border-neutral-400 group-hover:border-neutral border w-10 absolute top-3 duration-300"></div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

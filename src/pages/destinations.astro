@@ -4,7 +4,7 @@ import BaseLayout from "$layouts/BaseLayout.astro";
 import type { Destination } from "$lib/contentful";
 import { contentfulClient } from "$lib/contentful";
 
-const posts = await contentfulClient.getEntries<Destination>({
+const destinations = await contentfulClient.getEntries<Destination>({
   content_type: "destination",
 });
 ---
@@ -15,7 +15,7 @@ const posts = await contentfulClient.getEntries<Destination>({
   </PageCover>
 
   <ul class="text-neutral grid grid-cols-4 gap-0.5">
-    {posts.items.map(item => (
+    {destinations.items.map(item => (
       <li>
         <a href={`/destinations/${item.fields.slug}`}
           style={{ backgroundImage: `url('${item.fields.cover?.fields.file?.url}')`}}
