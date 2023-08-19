@@ -41,11 +41,11 @@ const { content, title, date, cover, destination } = Astro.props;
     <h1>{title}</h1>
   </PageCover>
 
-  <article id="content" set:html={content} />
+  <article id="content" class="m-md" set:html={content} />
 </BaseLayout>
 
 <style>
   article :global(p) {
-    @apply my-8;
+    @apply my-8 font-light text-lg;
   }
 </style>
