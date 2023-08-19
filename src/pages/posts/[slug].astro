@@ -30,13 +30,22 @@ const { content, title, date, cover, destination } = Astro.props;
 
 <BaseLayout title={title}>
   <PageCover center cover={cover.fields.file.url} slot="before-content">
-    <div class="text-lg">
+    <div class="text-base tracking-widest">
       <time class="inline">{date}</time>
       <span>|</span>
-      <a href={`/destinations/${destination.fields.slug}`} class="inline">{destination.fields.slug}</a>
+      <a href={`/destinations/${destination.fields.slug}`} class="inline">
+        {destination.fields.slug}
+      </a>
     </div>
+
     <h1>{title}</h1>
   </PageCover>
 
-  <article set:html={content} />
+  <article id="content" set:html={content} />
 </BaseLayout>
+
+<style>
+  article :global(p) {
+    @apply my-8;
+  }
+</style>

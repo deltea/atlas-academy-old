@@ -7,7 +7,6 @@ import { contentfulClient } from "$lib/contentful";
 const posts = await contentfulClient.getEntries<Destination>({
   content_type: "destination",
 });
-console.log(posts.items[0].fields);
 ---
 
 <BaseLayout title="Destinations">
@@ -15,11 +14,13 @@ console.log(posts.items[0].fields);
     <h1 class="text-4xl emphasis">Destinations</h1>
   </PageCover>
 
-  <ul class="text-neutral">
+  <ul class="text-neutral grid grid-cols-4 gap-0.5">
     {posts.items.map(item => (
       <li>
-        <a href={`/destinations/${item.fields.slug}`}>
-          <h1>{item.fields.name}</h1>
+        <a href={`/destinations/${item.fields.slug}`}
+          style={{ backgroundImage: `url('${item.fields.cover?.fields.file?.url}')`}}
+          class="block h-80 bg-cover bg-center text-white relative dim-image">
+          <h1 class="absolute left-6 bottom-6 font-bold uppercase text-sm">{item.fields.name}</h1>
         </a>
       </li>
     ))}
