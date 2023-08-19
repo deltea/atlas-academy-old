@@ -31,7 +31,9 @@ module.exports = {
           "900": "#171717",
           "950": "#0a0a0a",
           DEFAULT: "#262626",
-        }
+        },
+        "apple-podcasts": "#bd3de2",
+        "spotify": "#1dd65f",
       },
       spacing: {
         "xs": "2rem",
@@ -43,6 +45,7 @@ module.exports = {
       fontFamily: {
         sans: ["Jost", ...defaultTheme.fontFamily.sans],
         fancy: ["ZhanKu", "cursive"],
+        typical: [...defaultTheme.fontFamily.sans],
       },
     },
 	},

@@ -1,5 +1,6 @@
 ---
 import Navbar from "$components/Navbar.svelte";
+import Footer from "$components/Footer.astro";
 
 import "@fontsource/jost";
 import "$styles/global.css";
@@ -29,5 +30,7 @@ const {
     <main class="m-md">
       <slot />
     </main>
+
+    <Footer />
   </body>
 </html>

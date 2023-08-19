@@ -1,0 +1,55 @@
+---
+import { Icon } from "astro-icon";
+---
+
+<div class="bg-[url(/footer/waves.svg)] bg-white bg-cover bg-[center_bottom] bg-no-repeat w-full h-24 duration-300 -my-0.5"></div>
+
+<footer class="bg-[#ececec] p-8">
+  <section class="space-y-2">
+    <a href="https://open.spotify.com/show/7xuJTB7kCfKB0JVBkgW4k3"
+      class="rounded-md block w-max px-4 py-2 bg-spotify text-white"
+      target="_blank">
+      <small class="emphasis text-xs inline">Listen on</small>
+      <Icon name="mdi:spotify" class="w-6 h-6 inline" />
+      <h1 class="font-extrabold font-typical text-lg inline">Spotify</h1>
+    </a>
+    <a href="https://podcasts.apple.com/us/podcast/世界是學校-worldschooling/id1646258789"
+      class="rounded-md block w-max px-4 py-2 bg-apple-podcasts text-white"
+      target="_blank">
+      <small class="emphasis text-xs inline">Listen on</small>
+      <Icon name="fa-solid:podcast" class="w-6 h-6 inline" />
+      <h1 class="font-extrabold font-typical text-lg inline">Apple Podcasts</h1>
+    </a>
+  </section>
+
+  <hr class="border-neutral-300 my-4">
+
+  <div class="flex justify-between items-center text-neutral-600">
+    <p>© 2023 Atlas Academy. All rights reserved.</p>
+    <div>
+      <Icon name="mdi:facebook" class="w-6 h-6 inline" />
+      <Icon name="mdi:spotify" class="w-6 h-6 inline" />
+      <Icon name="fa-solid:podcast" class="w-6 h-6 inline" />
+    </div>
+  </div>
+</footer>
+
+<section class="bg-black flex justify-center items-center text-white font-mono text-xs h-7">
+  <p>Made by leo with</p>
+
+  <a href="https://astro.build" target="_blank">
+    <img src="/logos/astro.png" alt="Astro" class="w-5 h-5">
+  </a>
+
+  <span>-</span>
+
+  <a href="https://svelte.dev" target="_blank">
+    <Icon name="logos:svelte-icon" class="mx-1 w-4 h-4" />
+  </a>
+
+  <span>-</span>
+
+  <a href="https://contentful.com" target="_blank">
+    <Icon name="logos:contentful" class="ml-1 w-3.5 h-3.5" />
+  </a>
+</section>
