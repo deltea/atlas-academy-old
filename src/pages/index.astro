@@ -46,7 +46,7 @@ const featuredPosts = await contentfulClient.getEntries<BlogPost>({
     <HorizontalScroll client:visible>
       {latestPosts.items.map(item => (
         <a href={`/posts/${item.fields.slug}`} class="h-full w-64 flex flex-col gap-2 flex-shrink-0 group">
-          <div class="min-h-[80%] bg-cover bg-center duration-300 group-hover:scale-[103%]"
+          <div class="min-h-[80%] bg-cover bg-center duration-300 group-hover:scale-[103%] group-active:scale-95"
             style={{ backgroundImage: `url('${image(item.fields.cover?.fields.file?.url, 400)}')`}}>
           </div>
           <div>
