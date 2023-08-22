@@ -5,13 +5,21 @@ import PageCover from "$components/PageCover.astro";
 import type { BlogPost } from "$lib/contentful";
 import { contentfulClient } from "$lib/contentful";
 import { image } from "$lib/utils";
-import HorizontalScroll from "$components/HorizontalScroll.svelte";
 
-const posts = await contentfulClient.getEntries<BlogPost>({
+import HorizontalScroll from "$components/HorizontalScroll.svelte";
+import TiltCard from "$components/TiltCard.svelte";
+
+const latestPosts = await contentfulClient.getEntries<BlogPost>({
   content_type: "blogPost",
   order: ["-fields.date"],
   limit: 8,
 });
+
+const featuredPosts = await contentfulClient.getEntries<BlogPost>({
+  content_type: "blogPost",
+  "fields.featured": true,
+  limit: 3,
+})
 ---
 
 <BaseLayout>
@@ -34,9 +42,9 @@ const posts = await contentfulClient.getEntries<BlogPost>({
 
   <hr class="my-sm">
 
-  <HorizontalScroll client:load>
-    <section>
-      {posts.items.map(item => (
+  <section>
+    <HorizontalScroll client:visible>
+      {latestPosts.items.map(item => (
         <a href={`/posts/${item.fields.slug}`} class="h-full w-64 flex flex-col gap-2 flex-shrink-0 group">
           <div class="min-h-[80%] bg-cover bg-center duration-300 group-hover:scale-[103%]"
             style={{ backgroundImage: `url('${image(item.fields.cover?.fields.file?.url, 400)}')`}}>
@@ -47,6 +55,23 @@ const posts = await contentfulClient.getEntries<BlogPost>({
           </div>
         </a>
       ))}
-    </section>
-  </HorizontalScroll>
+    </HorizontalScroll>
+  </section>
+
+  <hr class="my-sm">
+
+  <section>
+    <h1 class="text-xl emphasis mb-8">Featured Posts</h1>
+
+    <div class="flex h-tall items-stretch gap-8">
+      {featuredPosts.items.map(item => (
+        <TiltCard
+          client:visible
+          url={`/posts/${item.fields.slug}`}
+          src={image(item.fields.cover?.fields.file?.url, 1000)}>
+          {item.fields.title}
+        </TiltCard>
+      ))}
+    </div>
+  </section>
 </BaseLayout>

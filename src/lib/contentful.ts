@@ -11,6 +11,7 @@ export interface BlogPost {
     cover: EntryFieldTypes.AssetLink,
     destination: EntryFieldTypes.EntryLink<Destination>,
     podcast: EntryFieldTypes.Text,
+    featured: EntryFieldTypes.Boolean,
   }
 }
 
