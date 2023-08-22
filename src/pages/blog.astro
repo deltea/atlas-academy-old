@@ -31,7 +31,7 @@ const rightPosts = entries.items.filter((_, i) => i % 2 !== 0);
                 {post.fields.date}
               </h1>
               <h2 class="text-neutral-400 group-hover:text-neutral duration-300">{post.fields.title}</h2>
-              <img src={image(post.fields.cover?.fields.file?.url!, 200)}
+              <img src={image(post.fields.cover?.fields.file?.url, 200)}
                 alt={post.fields.cover?.fields.title}
                 class="h-20 rounded-md mt-2 brightness-75 group-hover:brightness-100 group-hover:scale-110 duration-300 inline-block float-right">
             </div>
@@ -58,7 +58,7 @@ e
                 {post.fields.date}
               </h1>
               <h2 class="text-neutral-400 group-hover:text-neutral duration-300">{post.fields.title}</h2>
-              <img src={image(post.fields.cover?.fields.file?.url!, 200)}
+              <img src={image(post.fields.cover?.fields.file?.url, 200)}
                 alt={post.fields.cover?.fields.title}
                 class="h-20 rounded-md mt-2 brightness-75 group-hover:brightness-100 group-hover:scale-110 duration-300">
             </div>

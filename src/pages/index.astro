@@ -2,21 +2,15 @@
 import BaseLayout from "$layouts/BaseLayout.astro";
 import PageCover from "$components/PageCover.astro";
 
-import { contentfulClient } from "$lib/contentful";
 import type { BlogPost } from "$lib/contentful";
+import { contentfulClient } from "$lib/contentful";
+import { image } from "$lib/utils";
+import HorizontalScroll from "$components/HorizontalScroll.svelte";
 
-const entries = await contentfulClient.getEntries<BlogPost>({
+const posts = await contentfulClient.getEntries<BlogPost>({
   content_type: "blogPost",
-});
-
-const posts = entries.items.map(item => {
-  const { title, date, slug } = item.fields;
-
-  return {
-    title,
-    slug,
-    date: new Date(date).toLocaleDateString(),
-  }
+  order: ["-fields.date"],
+  limit: 8,
 });
 ---
 
@@ -37,4 +31,22 @@ const posts = entries.items.map(item => {
       <p>世界是學校，跟我們一起 Worldschooling!</p>
     </span>
   </section>
+
+  <hr class="my-sm">
+
+  <HorizontalScroll client:load>
+    <section>
+      {posts.items.map(item => (
+        <a href={`/posts/${item.fields.slug}`} class="h-full w-64 flex flex-col gap-2 flex-shrink-0 group">
+          <div class="min-h-[80%] bg-cover bg-center duration-300 group-hover:scale-[103%]"
+            style={{ backgroundImage: `url('${image(item.fields.cover?.fields.file?.url, 400)}')`}}>
+          </div>
+          <div>
+            <time class="text-xs text-neutral-500">{item.fields.date}</time>
+            <h1 class="text-sm">{item.fields.title}</h1>
+          </div>
+        </a>
+      ))}
+    </section>
+  </HorizontalScroll>
 </BaseLayout>

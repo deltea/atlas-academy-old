@@ -19,7 +19,7 @@ const destinations = await contentfulClient.getEntries<Destination>({
     {destinations.items.map(item => (
       <li>
         <a href={`/destinations/${item.fields.slug}`}
-          style={{ backgroundImage: `url('${image(item.fields.cover?.fields.file?.url!, 800)}')`}}
+          style={{ backgroundImage: `url('${image(item.fields.cover?.fields.file?.url, 800)}')`}}
           class="block h-80 bg-cover bg-center text-white relative dim-image">
           <h1 class="absolute left-6 bottom-6 font-bold uppercase text-sm">{item.fields.name}</h1>
         </a>
