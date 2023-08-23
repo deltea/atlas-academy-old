@@ -5,6 +5,7 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import type { Destination } from "$lib/contentful";
 import PageCover from "$components/PageCover.astro";
 import type { InferGetStaticPropsType } from "astro";
+import { image } from "$lib/utils";
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
@@ -57,10 +58,10 @@ const posts = await contentfulClient.getEntries<BlogPost>({
       <hr class="border-indigo-600 border-[1.5px] w-sm my-4">
       <ul class="grid grid-cols-4 gap-4">
         {posts.items.map(item => (
-          <li class="space-y-2">
+          <li class="space-y-2 group">
             <a href={`/posts/${item.fields.slug}`}
-              style={`background-image: url(${item.fields.cover?.fields.file?.url});`}
-              class="block h-40 bg-cover bg-center"></a>
+              style={`background-image: url(${image(item.fields.cover?.fields.file?.url, 500)});`}
+              class="block h-40 bg-cover bg-center hover-image"></a>
             <h1 class="font-semibold">{item.fields.title}</h1>
           </li>
         ))}

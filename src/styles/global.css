@@ -17,6 +17,10 @@
   font-weight: 600;
 }
 
+.hover-image {
+  @apply group-hover:scale-[103%] duration-300 group-active:scale-95;
+}
+
 @font-face {
   font-family: "ZhanKu";
   src: url(/fonts/ZhanKu.ttf);
