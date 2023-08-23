@@ -20,7 +20,7 @@
 <nav class={`flex justify-between fixed w-full z-50 p-xs items-center duration-500
   ${atPageTop ?
     "text-white bg-transparent h-navbar" :
-    "text-neutral bg-white dark:bg-neutral h-small-navbar shadow-lg"}`}>
+    "text-neutral bg-white dark:bg-neutral dark:text-white h-small-navbar shadow-lg"}`}>
   <!-- Title -->
   <header class={`font-fancy group ${atPageTop ? "text-3xl" : "text-2xl"} duration-100`}>
     <a class="group-hover:-top-1.5 top-0 relative duration-150" href="/">世界是学校</a>
