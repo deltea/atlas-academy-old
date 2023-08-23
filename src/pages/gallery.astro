@@ -15,5 +15,5 @@ const entries = await contentfulClient.getEntries<GalleryPhoto>({
     <h1 class="emphasis">Gallery</h1>
   </PageCover>
 
-  <GalleryGrid client:visible entries={entries} />
+  <GalleryGrid client:load entries={entries} />
 </BaseLayout>
