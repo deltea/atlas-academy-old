@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon";
+import "iconify-icon";
 ---
 
 <div class="bg-[url(/footer/waves.svg)] bg-white bg-cover bg-[center_bottom] bg-no-repeat w-full h-24 duration-300 -my-0.5"></div>
@@ -10,7 +10,7 @@ import { Icon } from "astro-icon";
       <a href="https://open.spotify.com/show/7xuJTB7kCfKB0JVBkgW4k3"
         class="rounded-lg flex gap-2 items-center w-64 px-2 py-1 bg-spotify text-white"
         target="_blank">
-        <Icon name="mdi:spotify" class="w-8 h-8 inline" />
+        <iconify-icon icon="mdi:spotify" class="text-3xl inline"></iconify-icon>
         <div>
           <small class="emphasis text-[0.65rem]">Listen on</small>
           <h1 class="font-bold text-lg tracking-wider -mt-2">Spotify</h1>
@@ -19,7 +19,7 @@ import { Icon } from "astro-icon";
       <a href="https://podcasts.apple.com/us/podcast/世界是學校-worldschooling/id1646258789"
         class="rounded-lg flex gap-2 items-center w-64 px-2 py-1 bg-apple-podcasts text-white"
         target="_blank">
-        <Icon name="fa-solid:podcast" class="w-8 h-8 inline" />
+        <iconify-icon icon="fa-solid:podcast" class="text-3xl inline"></iconify-icon>
         <div>
           <small class="emphasis text-[0.65rem]">Listen on</small>
           <h1 class="font-bold text-lg tracking-wider -mt-2">Apple Podcasts</h1>
@@ -52,30 +52,31 @@ import { Icon } from "astro-icon";
 
   <div class="flex justify-between items-center text-neutral-600">
     <p>© 2023 Atlas Academy. All rights reserved.</p>
-    <div>
-      <Icon name="mdi:facebook" class="w-6 h-6 inline" />
-      <Icon name="mdi:spotify" class="w-6 h-6 inline" />
-      <Icon name="fa-solid:podcast" class="w-6 h-6 inline" />
+
+    <div class="space-x-1">
+      <a href="https://www.facebook.com/worldschool.atlas.academy">
+        <iconify-icon icon="mdi:facebook" class="text-2xl inline-block"></iconify-icon>
+      </a>
+      <a href="https://open.spotify.com/show/7xuJTB7kCfKB0JVBkgW4k3">
+        <iconify-icon icon="mdi:spotify" class="text-2xl inline-block"></iconify-icon>
+      </a>
+      <a href="https://podcasts.apple.com/us/podcast/%E4%B8%96%E7%95%8C%E6%98%AF%E5%AD%B8%E6%A0%A1-worldschooling/id1646258789">
+        <iconify-icon icon="fa-solid:podcast" class="text-2xl inline-block"></iconify-icon>
+      </a>
     </div>
   </div>
 </footer>
 
-<section class="bg-black flex justify-center items-center text-white font-mono text-xs h-7">
-  <p>Made by leo with</p>
+<section class="bg-black flex justify-center items-center text-white font-mono text-xs h-5">
+  <p>Made by <span class="italic">Leo</span> with</p>
 
-  <a href="https://astro.build" target="_blank">
-    <img src="/logos/astro.png" alt="Astro" class="w-5 h-5">
+  <a href="https://astro.build" target="_blank" class="mx-1 flex items-center">
+    <iconify-icon icon="devicon-plain:astro" class="text-sm"></iconify-icon>
   </a>
 
   <span>-</span>
 
-  <a href="https://svelte.dev" target="_blank">
-    <Icon name="logos:svelte-icon" class="mx-1 w-4 h-4" />
-  </a>
-
-  <span>-</span>
-
-  <a href="https://contentful.com" target="_blank">
-    <Icon name="logos:contentful" class="ml-1 w-3.5 h-3.5" />
+  <a href="https://svelte.dev" target="_blank" class="mx-1 flex items-center">
+    <iconify-icon icon="devicon-plain:svelte" class="text-sm"></iconify-icon>
   </a>
 </section>

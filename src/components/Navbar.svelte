@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import "iconify-icon";
 
   let atPageTop = true;
 
@@ -34,17 +35,28 @@
 
   <!-- Socials -->
   <div class="space-x-2">
-    <a href="https://www.facebook.com/worldschool.atlas.academy" class="group" target="_blank">
-      <!-- <Icon name="mdi:facebook" class="w-6 h-6 inline group-hover:-top-1.5 top-0 relative duration-150" /> -->
-      <span class="w-6 h-6 inline group-hover:-top-1.5 top-0 relative duration-150">⛄</span>
+    <a href="https://www.facebook.com/worldschool.atlas.academy"
+      class="group"
+      target="_blank">
+      <iconify-icon icon="mdi:facebook"
+        class="text-xl group-hover:-top-1 top-0 relative duration-150">
+      </iconify-icon>
     </a>
-    <a href="https://open.spotify.com/show/7xuJTB7kCfKB0JVBkgW4k3" class="group" target="_blank">
-      <!-- <Icon name="mdi:spotify" class="w-6 h-6 inline group-hover:-top-1.5 top-0 relative duration-150" /> -->
-      <span class="w-6 h-6 inline group-hover:-top-1.5 top-0 relative duration-150">⛄</span>
+
+    <a href="https://open.spotify.com/show/7xuJTB7kCfKB0JVBkgW4k3"
+      class="group"
+      target="_blank">
+      <iconify-icon icon="mdi:spotify"
+        class="text-xl group-hover:-top-1 top-0 relative duration-150">
+      </iconify-icon>
     </a>
-    <a href="https://podcasts.apple.com/us/podcast/%E4%B8%96%E7%95%8C%E6%98%AF%E5%AD%B8%E6%A0%A1-worldschooling/id1646258789" class="w-6 h-6 group" target="_blank">
-      <!-- <Icon name="fa:podcast" class="w-6 h-6 inline group-hover:-top-1.5 top-0 relative duration-150" /> -->
-      <span class="w-6 h-6 inline group-hover:-top-1.5 top-0 relative duration-150">⛄</span>
+
+    <a href="https://podcasts.apple.com/us/podcast/%E4%B8%96%E7%95%8C%E6%98%AF%E5%AD%B8%E6%A0%A1-worldschooling/id1646258789"
+      class="group"
+      target="_blank">
+      <iconify-icon icon="fa:podcast"
+        class="text-xl group-hover:-top-1 top-0 relative duration-150">
+      </iconify-icon>
     </a>
   </div>
 </nav>
