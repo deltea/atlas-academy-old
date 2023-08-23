@@ -34,6 +34,7 @@ export interface GalleryPhoto {
     slug: EntryFieldTypes.Text,
     description: EntryFieldTypes.Text,
     image: EntryFieldTypes.AssetLink,
+    date: EntryFieldTypes.Date,
     city: EntryFieldTypes.Text,
     country: EntryFieldTypes.EntryLink<Destination>
   }
