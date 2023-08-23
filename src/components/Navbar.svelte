@@ -27,7 +27,7 @@
   </header>
 
   <!-- Navigation -->
-  <div class="emphasis text-xs space-x-6 duration-200">
+  <div class="emphasis text-xs flex gap-6 items-center duration-200">
     <a href="/">Home</a>
     <a href="/destinations">Destinations</a>
     <a href="/blog">Blog</a>
@@ -36,6 +36,7 @@
 
     <ThemeButton />
   </div>
+
 
   <!-- Socials -->
   <div class="space-x-2">
