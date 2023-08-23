@@ -27,6 +27,18 @@ export interface Destination {
   }
 }
 
+export interface GalleryPhoto {
+  contentTypeId: "galleryPhoto",
+  fields: {
+    title: EntryFieldTypes.Text,
+    slug: EntryFieldTypes.Text,
+    description: EntryFieldTypes.Text,
+    image: EntryFieldTypes.AssetLink,
+    city: EntryFieldTypes.Text,
+    country: EntryFieldTypes.EntryLink<Destination>
+  }
+}
+
 const contentfulBaseClient = contentful.createClient({
   space: import.meta.env.CONTENTFUL_SPACE_ID,
   accessToken: import.meta.env.DEV
