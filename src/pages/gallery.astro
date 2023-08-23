@@ -1,8 +1,8 @@
 ---
+import GalleryGrid from "$components/GalleryGrid.svelte";
 import PageCover from "$components/PageCover.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import { GalleryPhoto, contentfulClient } from "$lib/contentful";
-import { image } from "$lib/utils";
 
 const entries = await contentfulClient.getEntries<GalleryPhoto>({
   content_type: "galleryPhoto",
@@ -15,14 +15,5 @@ const entries = await contentfulClient.getEntries<GalleryPhoto>({
     <h1 class="emphasis">Gallery</h1>
   </PageCover>
 
-  <section>
-    <ul class="grid grid-cols-5">
-      {entries.items.map(item => (
-        <li class="-m-0.5">
-          <img src={image(item.fields.image?.fields.file?.url, 400)}
-            alt={item.fields.description ?? item.fields.title ?? "Gallery Photo"}>
-        </li>
-      ))}
-    </ul>
-  </section>
+  <GalleryGrid client:visible entries={entries} />
 </BaseLayout>
