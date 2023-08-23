@@ -35,6 +35,8 @@ module.exports = {
         },
         "apple-podcasts": "#bd3de2",
         "spotify": "#1dd65f",
+        "footer": "#ececec",
+        "dark-footer": "#434343",
       },
       spacing: {
         "xs": "2rem",
@@ -49,6 +51,10 @@ module.exports = {
         fancy: ["ZhanKu", "cursive"],
         typical: [...defaultTheme.fontFamily.sans],
       },
+      backgroundImage: {
+        "waves": "url(/footer/waves.svg)",
+        "dark-waves": "url(/footer/dark-waves.svg)"
+      }
     },
 	},
 	plugins: [],
