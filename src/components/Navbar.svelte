@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import "iconify-icon";
   import ThemeButton from "$components/ThemeButton.svelte";
+  import ThemeButton from "$components/ThemeButton.svelte";
 
   let atPageTop = true;
 
@@ -33,6 +34,8 @@
     <a href="/blog">Blog</a>
     <a href="/gallery">Gallery</a>
     <a href="/about">About</a>
+
+    <ThemeButton />
 
     <ThemeButton />
   </div>
