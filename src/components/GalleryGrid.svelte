@@ -52,7 +52,7 @@
   </button>
 
   {#if currentIndex > 0}
-    <button class="absolute top-1/2 -translate-x-1/2 left-12" on:click={() => changePhoto(-1)}>
+    <button class="absolute left-0 h-full px-8" on:click={() => changePhoto(-1)}>
       <iconify-icon icon="mdi:chevron-left" class="text-4xl"></iconify-icon>
     </button>
   {/if}
@@ -69,7 +69,7 @@
   </div>
 
   {#if currentIndex < entries.items.length - 1}
-    <button class="absolute top-1/2 -translate-x-1/2 right-4" on:click={() => changePhoto(1)}>
+    <button class="absolute right-4 h-full px-8" on:click={() => changePhoto(1)}>
       <iconify-icon icon="mdi:chevron-right" class="text-4xl"></iconify-icon>
     </button>
   {/if}
