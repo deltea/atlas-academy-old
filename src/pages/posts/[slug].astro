@@ -2,8 +2,10 @@
 import PageCover from "$components/PageCover.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import { contentfulClient } from "$lib/contentful";
-import type { BlogPost } from "$lib/contentful";
+import { image } from "$lib/utils";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { BLOCKS } from "@contentful/rich-text-types";
+import type { BlogPost } from "$lib/contentful";
 
 export async function getStaticPaths() {
   const entries = await contentfulClient.getEntries<BlogPost>({
@@ -15,7 +17,25 @@ export async function getStaticPaths() {
     props: {
       title: item.fields.title,
       type: item.fields.type,
-      content: documentToHtmlString(item.fields.content),
+      content: documentToHtmlString(item.fields.content, {
+        renderNode: {
+          [BLOCKS.EMBEDDED_ASSET]: (node) => {
+            const url = node.data.target.fields.file.url;
+            const alt = node.data.target.fields.title;
+
+            return (
+              url ?
+              `<img
+                src="${image(url, 1000)}"
+                alt="${alt}"
+                class="w-full h-auto">` :
+              `<div class="border-dashed border-neutral dark:border-white border-2 w-full h-96 flex flex-col justify-center items-center rounded-lg">
+                <h1 class="font-bold text-3xl">Sorry, it looks like no image was found :(</h1>
+              </div>`
+            );
+          },
+        },
+      }),
       date: new Date(item.fields.date).toLocaleDateString(),
       cover: item.fields.cover,
       destination: item.fields.destination,
@@ -48,5 +68,9 @@ const { content, title, date, cover, destination } = Astro.props;
 <style>
   article :global(p) {
     @apply my-8 font-light text-lg;
+  }
+
+  article :global(h1) {
+    @apply font-bold text-3xl;
   }
 </style>
