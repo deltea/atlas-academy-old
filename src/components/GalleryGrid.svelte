@@ -3,6 +3,7 @@
   import { image } from "$lib/utils";
   import type { Entry, EntryCollection } from "contentful";
   import "iconify-icon";
+  import { scale } from "svelte/transition";
 
   export let entries: EntryCollection<GalleryPhoto, "WITHOUT_UNRESOLVABLE_LINKS", string>;
 
@@ -52,7 +53,9 @@
   </button>
 
   {#if currentIndex > 0}
-    <button class="absolute left-0 h-full px-8" on:click={() => changePhoto(-1)}>
+    <button class="absolute left-0 h-full px-8 hover:scale-125 active:scale-90 duration-150 origin-center"
+      on:click={() => changePhoto(-1)}
+      transition:scale={{ duration: 200 }}>
       <iconify-icon icon="mdi:chevron-left" class="text-4xl"></iconify-icon>
     </button>
   {/if}
@@ -69,7 +72,9 @@
   </div>
 
   {#if currentIndex < entries.items.length - 1}
-    <button class="absolute right-4 h-full px-8" on:click={() => changePhoto(1)}>
+    <button class="absolute right-4 h-full px-8 hover:scale-125 active:scale-90 duration-150 origin-center"
+      on:click={() => changePhoto(1)}
+      transition:scale={{ duration: 200 }}>
       <iconify-icon icon="mdi:chevron-right" class="text-4xl"></iconify-icon>
     </button>
   {/if}

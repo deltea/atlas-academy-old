@@ -24,7 +24,7 @@
   });
 </script>
 
-<section class="m-md space-y-sm">
+<section class="m-60 space-y-sm">
   {#if headings && headings.length !== 0}
     <div class="w-full bg-neutral-100 dark:bg-neutral-700 p-8">
       <h1 class="font-bold text-2xl emphasis">
@@ -57,7 +57,7 @@
 
 <style>
   article :global(p) {
-    @apply my-8 font-light text-lg;
+    @apply my-8 font-light text-base tracking-wider;
   }
 
   article :global(h1) {
