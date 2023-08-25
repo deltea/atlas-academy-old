@@ -2,10 +2,13 @@
 import PageCover from "$components/PageCover.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import { contentfulClient } from "$lib/contentful";
-import { image } from "$lib/utils";
+import { extractSpotifyId, image } from "$lib/utils";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import type { BlogPost } from "$lib/contentful";
+import type { InferGetStaticPropsType } from "astro";
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export async function getStaticPaths() {
   const entries = await contentfulClient.getEntries<BlogPost>({
@@ -16,7 +19,6 @@ export async function getStaticPaths() {
     params: { slug: item.fields.slug },
     props: {
       title: item.fields.title,
-      type: item.fields.type,
       content: documentToHtmlString(item.fields.content, {
         renderNode: {
           [BLOCKS.EMBEDDED_ASSET]: (node) => {
@@ -37,32 +39,43 @@ export async function getStaticPaths() {
         },
       }),
       date: new Date(item.fields.date).toLocaleDateString(),
-      cover: item.fields.cover,
-      destination: item.fields.destination,
-      podcast: item.fields.podcast,
+      cover: item.fields.cover?.fields.file?.url,
+      destination: item.fields.destination?.fields.slug,
+      podcasts: item.fields.podcast,
     },
   }));
 
   return pages;
 }
 
-const { content, title, date, cover, destination } = Astro.props;
+const { content, title, date, cover, destination, podcasts } = Astro.props;
 ---
 
 <BaseLayout title={title}>
-  <PageCover center cover={cover.fields.file.url} slot="before-content">
+  <PageCover center cover={cover} slot="before-content">
     <div class="text-base tracking-widest">
       <time class="inline">{date}</time>
       <span>|</span>
-      <a href={`/destinations/${destination.fields.slug}`} class="inline">
-        {destination.fields.slug}
+      <a href={`/destinations/${destination}`} class="inline">
+        {destination}
       </a>
     </div>
 
     <h1>{title}</h1>
   </PageCover>
 
-  <article id="content" class="m-md" set:html={content} />
+  <section class="m-md space-y-sm">
+    {podcasts.map(podcast => (
+      <iframe
+        src={`https://open.spotify.com/embed/episode/${extractSpotifyId(podcast)}?utm_source=generator&theme=0`}
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        class="w-full h-20"></iframe>
+    ))}
+
+    <article set:html={content} />
+  </section>
 </BaseLayout>
 
 <style>

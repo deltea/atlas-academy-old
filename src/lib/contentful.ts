@@ -10,7 +10,7 @@ export interface BlogPost {
     content: EntryFieldTypes.RichText,
     cover: EntryFieldTypes.AssetLink,
     destination: EntryFieldTypes.EntryLink<Destination>,
-    podcast: EntryFieldTypes.Text,
+    podcast: EntryFieldTypes.Array<EntryFieldTypes.Symbol>,
     featured: EntryFieldTypes.Boolean,
   }
 }
