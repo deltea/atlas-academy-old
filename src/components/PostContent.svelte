@@ -35,10 +35,10 @@
           figure.querySelector("img")?.classList.add("h-tall");
         } else {
           figure.classList.add("w-1/2");
-          figure.classList.add("px-1");
           figure.querySelector("img")?.classList.add("h-short");
         }
 
+        figure.classList.add("px-1");
         figure.classList.add("inline-block");
         figure.querySelector("img")?.classList.add("object-cover");
       });
@@ -91,6 +91,6 @@
   }
 
   article :global(h1) {
-    @apply font-bold text-3xl;
+    @apply font-bold text-3xl mb-8;
   }
 </style>
