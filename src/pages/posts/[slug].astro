@@ -42,7 +42,7 @@ export async function getStaticPaths() {
       date: new Date(item.fields.date).toLocaleDateString(),
       cover: item.fields.cover?.fields.file?.url,
       destination: item.fields.destination?.fields.slug,
-      podcasts: item.fields.podcast,
+      podcasts: item.fields.podcast  ?? [],
     },
   }));
 

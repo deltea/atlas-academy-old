@@ -11,7 +11,6 @@
   function scrollToSection(id: string) {
     const target = document.getElementById(id) as HTMLHeadingElement;
     window.scrollTo(0, target.offsetTop - 100);
-    console.log(id);
   }
 
   onMount(() => {
@@ -26,7 +25,7 @@
 </script>
 
 <section class="m-md space-y-sm">
-  {#if headings}
+  {#if headings && headings.length !== 0}
     <div class="w-full bg-neutral-100 dark:bg-neutral-700 p-8">
       <h1 class="font-bold text-2xl emphasis">
         Outline
