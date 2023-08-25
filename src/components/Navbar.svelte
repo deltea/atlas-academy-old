@@ -2,11 +2,20 @@
   import { onMount } from "svelte";
   import "iconify-icon";
   import ThemeButton from "$components/ThemeButton.svelte";
+  import { fly } from "svelte/transition";
 
   let atPageTop = true;
+  let atPageBottom = false;
 
   function checkPageTop() {
     atPageTop = window.scrollY === 0;
+    atPageBottom = Math.round(
+      window.innerHeight + window.scrollY
+    ) >= document.body.offsetHeight;
+  }
+
+  function backToTop() {
+    window.scrollTo(0, 0);
   }
 
   onMount(() => {
@@ -65,3 +74,12 @@
     </a>
   </div>
 </nav>
+
+{#if !atPageTop && !atPageBottom}
+  <button
+    class="fixed bottom-8 right-8 text-2xl text-white rounded-full shadow-lg bg-neutral-600 w-12 h-12 flex justify-center items-center z-50"
+    on:click={backToTop}
+    transition:fly={{ y: 80, duration: 300 }}>
+    <iconify-icon icon="mdi:chevron-up"></iconify-icon>
+  </button>
+{/if}
