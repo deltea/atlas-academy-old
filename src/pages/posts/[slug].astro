@@ -7,6 +7,7 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import type { BlogPost } from "$lib/contentful";
 import type { InferGetStaticPropsType } from "astro";
+import PostContent from "$components/PostContent.svelte";
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
@@ -64,26 +65,5 @@ const { content, title, date, cover, destination, podcasts } = Astro.props;
     <h1>{title}</h1>
   </PageCover>
 
-  <section class="m-md space-y-sm">
-    {podcasts.map(podcast => (
-      <iframe
-        src={`https://open.spotify.com/embed/episode/${extractSpotifyId(podcast)}?utm_source=generator&theme=0`}
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-        class="w-full h-20"></iframe>
-    ))}
-
-    <article set:html={content} />
-  </section>
+  <PostContent client:load content={content} podcasts={podcasts} />
 </BaseLayout>
-
-<style>
-  article :global(p) {
-    @apply my-8 font-light text-lg;
-  }
-
-  article :global(h1) {
-    @apply font-bold text-3xl;
-  }
-</style>
