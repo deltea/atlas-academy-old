@@ -8,11 +8,11 @@
   let contentContainer: HTMLElement;
   let headings: NodeListOf<HTMLHeadingElement>;
 
-    function scroll(id: string) {
-      const target = document.getElementById(id) as HTMLHeadingElement;
-      window.scrollTo(0, target.offsetTop - 100);
-      console.log(id);
-    }
+  function scroll(id: string) {
+    const target = document.getElementById(id) as HTMLHeadingElement;
+    window.scrollTo(0, target.offsetTop - 100);
+    console.log(id);
+  }
 
   onMount(() => {
     headings = contentContainer.querySelectorAll("h1");
@@ -26,7 +26,7 @@
   {#if headings}
     <div class="w-full bg-neutral-100 dark:bg-neutral-700 p-8">
       <h1 class="font-bold text-2xl emphasis">
-        Table of Contents
+        Outline
       </h1>
 
       <hr class="border-neutral-200 dark:border-neutral-600 my-8 duration-200">
