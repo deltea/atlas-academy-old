@@ -22,7 +22,7 @@ export async function getStaticPaths() {
       content: documentToHtmlString(item.fields.content, {
         renderNode: {
           [BLOCKS.EMBEDDED_ASSET]: (node) => {
-            const url = node.data.target.fields.file.url;
+            const url = node.data.target.fields.file?.url;
             const alt = node.data.target.fields.title;
 
             return (
