@@ -18,7 +18,7 @@ const latestPosts = await contentfulClient.getEntries<BlogPost>({
 const featuredPosts = await contentfulClient.getEntries<BlogPost>({
   content_type: "blogPost",
   "fields.featured": true,
-  limit: 3,
+  limit: 4,
 })
 ---
 
@@ -63,7 +63,7 @@ const featuredPosts = await contentfulClient.getEntries<BlogPost>({
   <section>
     <h1 class="text-xl emphasis mb-8">Featured Posts</h1>
 
-    <div class="flex h-tall items-stretch gap-8">
+    <div class="flex h-tall items-stretch gap-4">
       {featuredPosts.items.map(item => (
         <TiltCard
           client:visible
