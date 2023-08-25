@@ -45,6 +45,7 @@ module.exports = {
         "navbar": "6rem",
         "small-navbar": "5rem",
         "tall": "24rem",
+        "short": "20rem",
       },
       fontFamily: {
         sans: ["Jost", ...defaultTheme.fontFamily.sans],

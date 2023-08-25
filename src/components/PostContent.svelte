@@ -7,6 +7,7 @@
 
   let contentContainer: HTMLElement;
   let headings: NodeListOf<HTMLHeadingElement>;
+  let imageGroup: HTMLElement[][] = [];
 
   function scrollToSection(id: string) {
     const target = document.getElementById(id) as HTMLHeadingElement;
@@ -14,13 +15,42 @@
   }
 
   onMount(() => {
+    let tempImages: HTMLElement[] = [];
+    const figures = Array.from(contentContainer.querySelectorAll("figure"));
+
+    figures.forEach(figure => {
+      tempImages.push(figure);
+
+      if (figure.nextElementSibling?.tagName !== "FIGURE") {
+        imageGroup.push([...tempImages]);
+        tempImages = [];
+      }
+    });
+
+    imageGroup.forEach(group => {
+      group.forEach((figure, i) => {
+        const isSingleImage = (group.length % 2 !== 0) && (i === group.length - 1);
+        if (isSingleImage) {
+          figure.classList.add("w-full");
+          figure.querySelector("img")?.classList.add("h-tall");
+        } else {
+          figure.classList.add("w-1/2");
+          figure.classList.add("px-1");
+          figure.querySelector("img")?.classList.add("h-short");
+        }
+
+        figure.classList.add("inline-block");
+        figure.querySelector("img")?.classList.add("object-cover");
+      });
+    });
+
     headings = contentContainer.querySelectorAll("h1");
 
-    if (!headings) console.log("nononono");
-
-    headings.forEach((heading, i) => {
-      heading.id = i.toString();
-    });
+    if (headings) {
+      headings.forEach((heading, i) => {
+        heading.id = i.toString();
+      });
+    }
   });
 </script>
 
