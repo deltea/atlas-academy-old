@@ -8,7 +8,7 @@
   let contentContainer: HTMLElement;
   let headings: NodeListOf<HTMLHeadingElement>;
 
-  function scroll(id: string) {
+  function scrollToSection(id: string) {
     const target = document.getElementById(id) as HTMLHeadingElement;
     window.scrollTo(0, target.offsetTop - 100);
     console.log(id);
@@ -16,6 +16,9 @@
 
   onMount(() => {
     headings = contentContainer.querySelectorAll("h1");
+
+    if (!headings) console.log("nononono");
+
     headings.forEach((heading, i) => {
       heading.id = i.toString();
     });
@@ -33,7 +36,7 @@
 
       <div class="space-y-4">
         {#each headings as heading, i}
-          <button on:click={() => scroll(i.toString())} class="block uppercase text-sm font-semibold text-indigo-600">
+          <button on:click={() => scrollToSection(i.toString())} class="block uppercase text-sm font-semibold text-indigo-600">
             {heading.innerText}
           </button>
         {/each}
