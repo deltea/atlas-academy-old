@@ -33,7 +33,7 @@ module.exports = {
           "950": "#0a0a0a",
           DEFAULT: "#262626",
         },
-        theme: "#006cff",
+        "theme": "#006cff",
         "apple-podcasts": "#bd3de2",
         "spotify": "#1dd65f",
         "footer": "#ececec",
