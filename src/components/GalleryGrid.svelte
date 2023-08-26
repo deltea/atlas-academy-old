@@ -10,8 +10,10 @@
   let modal: HTMLDialogElement;
   let currentIndex = 0;
   let currentPhoto: Entry<GalleryPhoto, "WITHOUT_UNRESOLVABLE_LINKS", string>;
+  let loading = false;
 
   $: currentPhoto = entries.items[currentIndex];
+  $: console.log(loading);
 
   function lightDismiss(e: MouseEvent) {
     const target = e.target as HTMLDialogElement;
@@ -28,10 +30,16 @@
     currentIndex = index;
     modal.classList.remove("is-hidden");
     modal.showModal();
+    loading = true;
   }
 
   function changePhoto(direction: -1 | 1) {
     currentIndex += direction;
+    loading = true;
+  }
+
+  function imageLoaded() {
+    loading = false;
   }
 </script>
 
@@ -61,9 +69,18 @@
   {/if}
 
   <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex w-4/5 gap-8 pointer-events-none">
+    {#if loading}
+      <div class="bg-white dark:bg-neutral min-w-[30rem] h-[30rem] flex justify-center items-center">
+        <iconify-icon icon="ph:spinner-bold"
+          class="text-4xl animate-spin text-neutral dark:text-white"></iconify-icon>
+      </div>
+    {/if}
+
     <img src={image(currentPhoto.fields.image?.fields.file?.url, 1000)}
       alt={currentPhoto.fields.title}
-      class="h-[30rem] pointer-events-auto">
+      class="h-[30rem] pointer-events-auto"
+      class:hidden={loading}
+      on:load={imageLoaded}>
 
     <div class="space-y-8 mt-6 h-fit pointer-events-auto">
       <h1 class="font-bold text-2xl">{currentPhoto.fields.title}</h1>
