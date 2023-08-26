@@ -1,17 +1,25 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import "iconify-icon";
-  import ThemeButton from "$components/ThemeButton.svelte";
   import { fly } from "svelte/transition";
+  import ThemeButton from "$components/ThemeButton.svelte";
+  import "iconify-icon";
 
   let atPageTop = true;
   let atPageBottom = false;
+  let scrollDirection: "up" | "down" = "up";
+  let scrolledScreenHeight = false;
 
   function checkPageTop() {
     atPageTop = window.scrollY === 0;
     atPageBottom = Math.round(
       window.innerHeight + window.scrollY
     ) >= document.body.offsetHeight;
+    scrolledScreenHeight = window.scrollY > window.innerHeight;
+  }
+
+  function checkScrollDirection(e: WheelEvent) {
+    scrollDirection = e.deltaY < 0 ? "up" : "down";
+    console.log(scrollDirection);
   }
 
   function backToTop() {
@@ -22,14 +30,21 @@
     checkPageTop();
 
     document.addEventListener("scroll", checkPageTop);
-    return () => document.removeEventListener("scroll", checkPageTop);
+    document.addEventListener("wheel", checkScrollDirection);
+
+    return () => {
+      document.removeEventListener("scroll", checkPageTop);
+      document.removeEventListener("wheel", checkScrollDirection);
+    }
   });
 </script>
 
 <nav class={`flex justify-between fixed w-full z-50 p-xs items-center duration-500
   ${atPageTop ?
     "text-white bg-transparent h-navbar" :
-    "text-neutral bg-white dark:bg-neutral dark:text-white h-small-navbar shadow-lg"}`}>
+    "text-neutral bg-white dark:bg-neutral dark:text-white h-small-navbar shadow-lg"}
+  ${scrolledScreenHeight && scrollDirection === "down" ? "-top-[7rem]" : "top-0"}`}>
+
   <!-- Title -->
   <header class={`font-fancy group ${atPageTop ? "text-3xl" : "text-2xl"} duration-100`}>
     <a class="group-hover:-top-1.5 top-0 relative duration-150" href="/">世界是学校</a>
