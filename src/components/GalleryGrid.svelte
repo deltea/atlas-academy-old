@@ -14,6 +14,10 @@
 
   $: currentPhoto = entries.items[currentIndex];
   $: console.log(loading);
+  $: {
+    currentIndex;
+    loading = true;
+  }
 
   function lightDismiss(e: MouseEvent) {
     const target = e.target as HTMLDialogElement;
@@ -30,12 +34,10 @@
     currentIndex = index;
     modal.classList.remove("is-hidden");
     modal.showModal();
-    loading = true;
   }
 
   function changePhoto(direction: -1 | 1) {
     currentIndex += direction;
-    loading = true;
   }
 
   function imageLoaded() {
@@ -45,8 +47,13 @@
 
 <section class="grid grid-cols-5 dark:gap-2 gap-1 duration-200">
   {#each entries.items as item, i (item.fields.slug)}
-    <button on:click={() => openModal(i)}>
-      <img src={image(item.fields.image?.fields.file?.url, 400)} alt={item.fields.title}>
+    <button on:click={() => openModal(i)} class="group">
+      <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 400)}')`}
+        class="bg-cover bg-center aspect-square flex justify-center items-center group-hover:bg-neutral-600 bg-blend-multiply duration-200">
+        <h1 class="w-3/4 text-xl group-hover:opacity-100 opacity-0 duration-200 text-white">
+          {item.fields.title}
+        </h1>
+      </div>
     </button>
   {/each}
 </section>
@@ -84,6 +91,7 @@
 
     <div class="space-y-8 mt-6 h-fit pointer-events-auto">
       <h1 class="font-bold text-2xl">{currentPhoto.fields.title}</h1>
+      <small class="italic text-base">{currentPhoto.fields.city}, {currentPhoto.fields.country?.fields.short}</small>
       <h2 class="text-lg">{currentPhoto.fields.description}</h2>
     </div>
   </div>

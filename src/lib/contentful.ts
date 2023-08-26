@@ -20,6 +20,7 @@ export interface Destination {
   fields: {
     name: EntryFieldTypes.Text,
     slug: EntryFieldTypes.Text,
+    short: EntryFieldTypes.Text,
     cover: EntryFieldTypes.AssetLink,
     description: EntryFieldTypes.RichText,
     continent: EntryFieldTypes.Text,
