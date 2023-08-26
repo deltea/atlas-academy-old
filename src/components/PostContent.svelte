@@ -65,7 +65,8 @@
 
       <div class="space-y-4">
         {#each headings as heading, i}
-          <button on:click={() => scrollToSection(i.toString())} class="block uppercase text-sm font-semibold text-indigo-600">
+          <button on:click={() => scrollToSection(i.toString())}
+            class="block uppercase text-sm font-semibold text-indigo-600 hover:underline">
             {heading.innerText}
           </button>
         {/each}
