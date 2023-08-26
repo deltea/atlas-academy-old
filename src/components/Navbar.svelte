@@ -11,7 +11,7 @@
 
   function checkPageTop() {
     atPageTop = window.scrollY === 0;
-    atPageBottom = Math.round(
+    atPageBottom = Math.ceil(
       window.innerHeight + window.scrollY
     ) >= document.body.offsetHeight;
     scrolledScreenHeight = window.scrollY > window.innerHeight;
