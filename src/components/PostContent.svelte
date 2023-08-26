@@ -54,7 +54,7 @@
   });
 </script>
 
-<section class="m-60 space-y-8">
+<section class="mx-60 my-sm space-y-8">
   {#if headings && headings.length !== 0}
     <div class="w-full bg-neutral-100 dark:bg-neutral-700 p-8">
       <h1 class="font-bold text-2xl emphasis">
