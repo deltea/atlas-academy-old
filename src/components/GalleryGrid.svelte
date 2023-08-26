@@ -13,7 +13,6 @@
   let loading = false;
 
   $: currentPhoto = entries.items[currentIndex];
-  $: console.log(loading);
   $: {
     currentIndex;
     loading = true;
@@ -38,10 +37,6 @@
 
   function changePhoto(direction: -1 | 1) {
     currentIndex += direction;
-  }
-
-  function imageLoaded() {
-    loading = false;
   }
 </script>
 
@@ -87,7 +82,7 @@
       alt={currentPhoto.fields.title}
       class="h-[30rem] pointer-events-auto"
       class:hidden={loading}
-      on:load={imageLoaded}>
+      on:load={() => loading = false}>
 
     <div class="space-y-8 mt-6 h-fit pointer-events-auto">
       <h1 class="font-bold text-2xl">{currentPhoto.fields.title}</h1>
