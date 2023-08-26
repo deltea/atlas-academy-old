@@ -46,7 +46,7 @@ const posts = await contentfulClient.getEntries<BlogPost>({
   <div class="space-y-sm">
     <section>
       <h1 class="lowercase tracking-widest font-semibold text-neutral-500 dark:text-neutral-400">{name}</h1>
-      <hr class="border-indigo-600 border-[1.5px] w-sm my-4">
+      <hr class="border-theme border-[1.5px] w-sm my-4">
       <div class="space-y-4">
         <h2 class="font-bold text-2xl">{heading}</h2>
         <article set:html={description} />
@@ -55,7 +55,7 @@ const posts = await contentfulClient.getEntries<BlogPost>({
 
     <section>
       <h1 class="lowercase tracking-widest font-semibold text-neutral-500 dark:text-neutral-400">all posts</h1>
-      <hr class="border-indigo-600 border-[1.5px] w-sm my-4">
+      <hr class="border-theme border-[1.5px] w-sm my-4">
       <ul class="grid grid-cols-4 gap-4">
         {posts.items.map(item => (
           <li class="space-y-2 group">
