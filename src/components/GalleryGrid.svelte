@@ -58,15 +58,15 @@
 <dialog bind:this={modal}
   on:click={lightDismiss}
   class="fixed backdrop:bg-black backdrop:bg-opacity-80 w-full h-full bg-transparent text-white">
-  <button on:click={closeModal} class="absolute right-4 top-4">
+  <button on:click={closeModal} class="absolute right-2 top-2">
     <iconify-icon icon="mdi:close" class="text-3xl"></iconify-icon>
   </button>
 
   {#if currentIndex > 0}
-    <button class="absolute left-0 h-full px-8 hover:scale-125 hover:-translate-x-2 active:scale-90 duration-150 origin-center"
+    <button class="absolute left-8 h-full full-8 group"
       on:click={() => changePhoto(-1)}
       transition:scale={{ duration: 200 }}>
-      <iconify-icon icon="mdi:chevron-left" class="text-4xl"></iconify-icon>
+      <iconify-icon icon="mdi:chevron-left" class="text-4xl group-hover:scale-125 group-hover:-translate-x-2 group-active:scale-90 duration-150 origin-center"></iconify-icon>
     </button>
   {/if}
 
@@ -92,10 +92,10 @@
   </div>
 
   {#if currentIndex < entries.items.length - 1}
-    <button class="absolute right-4 h-full px-8 hover:scale-125 hover:translate-x-2 active:scale-90 duration-150 origin-center"
+    <button class="absolute right-8 h-full px-8 group"
       on:click={() => changePhoto(1)}
       transition:scale={{ duration: 200 }}>
-      <iconify-icon icon="mdi:chevron-right" class="text-4xl"></iconify-icon>
+      <iconify-icon icon="mdi:chevron-right" class="text-4xl group-hover:scale-125 group-hover:translate-x-2 group-active:scale-90 duration-150 origin-center"></iconify-icon>
     </button>
   {/if}
 </dialog>
