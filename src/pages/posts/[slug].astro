@@ -1,13 +1,14 @@
 ---
-import PageCover from "$components/PageCover.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
+import PageCover from "$components/PageCover.astro";
+import PostContent from "$components/PostContent.svelte";
+import PostNavigation from "$components/PostNavigation.astro";
 import { contentfulClient } from "$lib/contentful";
-import { extractSpotifyId, image } from "$lib/utils";
+import { image } from "$lib/utils";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import type { BlogPost } from "$lib/contentful";
 import type { InferGetStaticPropsType } from "astro";
-import PostContent from "$components/PostContent.svelte";
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
@@ -50,13 +51,14 @@ export async function getStaticPaths() {
       date: new Date(item.fields.date).toLocaleDateString(),
       cover: item.fields.cover?.fields.file?.url,
       destination: item.fields.destination?.fields.slug,
-      podcasts: item.fields.podcast  ?? [],
+      podcasts: item.fields.podcast ?? [],
     },
   }));
 
   return pages;
 }
 
+const { slug } = Astro.params;
 const { content, title, date, cover, destination, podcasts } = Astro.props;
 ---
 
@@ -74,4 +76,6 @@ const { content, title, date, cover, destination, podcasts } = Astro.props;
   </PageCover>
 
   <PostContent client:load content={content} podcasts={podcasts} />
+
+  <PostNavigation slug={slug} />
 </BaseLayout>

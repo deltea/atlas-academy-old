@@ -1,0 +1,34 @@
+---
+import { BlogPost, contentfulClient } from "$lib/contentful";
+import "iconify-icon";
+
+const { slug } = Astro.props;
+
+const allPosts = await contentfulClient.getEntries<BlogPost>({
+  content_type: "blogPost",
+  order: ["fields.date"],
+});
+
+const currentPost = allPosts.items.find(item => item.fields.slug === slug);
+const currentPostIndex = allPosts.items.indexOf(currentPost!);
+const nextPost = allPosts.items[currentPostIndex + 1];
+const previousPost = allPosts.items[currentPostIndex - 1];
+---
+
+<nav class="flex justify-between items-center">
+  {nextPost &&
+  <a href={`/posts/${nextPost.fields.slug}`} class="group">
+    <iconify-icon icon="gg:arrow-left" class="text-3xl group-hover:-translate-x-4 duration-150"></iconify-icon>
+    <h1 class="font-bold text-lg">{nextPost.fields.title}</h1>
+    <small>{nextPost.fields.date}</small>
+  </a>}
+
+  <div />
+
+  {previousPost &&
+  <a href={`/posts/${previousPost.fields.slug}`} class="text-right group">
+    <iconify-icon icon="gg:arrow-right" class="text-3xl group-hover:translate-x-4 duration-150"></iconify-icon>
+    <h1 class="font-bold text-lg">{previousPost.fields.title}</h1>
+    <small>{previousPost.fields.date}</small>
+  </a>}
+</nav>
