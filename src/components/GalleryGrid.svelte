@@ -38,6 +38,14 @@
   function changePhoto(direction: -1 | 1) {
     currentIndex += direction;
   }
+
+  function keyPress(e: KeyboardEvent) {
+    if (e.code === "ArrowRight") {
+      changePhoto(1);
+    } else if (e.code === "ArrowLeft") {
+      changePhoto(-1);
+    }
+  }
 </script>
 
 <section class="grid grid-cols-5 dark:gap-2 gap-1 duration-200">
@@ -57,7 +65,8 @@
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <dialog bind:this={modal}
   on:click={lightDismiss}
-  class="fixed backdrop:bg-black backdrop:bg-opacity-80 w-full h-full bg-transparent text-white flex justify-center items-center">
+  on:keydown={keyPress}
+  class="fixed backdrop:bg-black backdrop:bg-opacity-80 w-full h-full bg-transparent text-white flex justify-center items-center outline-none">
   <button on:click={closeModal} class="absolute right-2 top-2">
     <iconify-icon icon="mdi:close" class="text-3xl"></iconify-icon>
   </button>
