@@ -17,18 +17,18 @@ const previousPost = allPosts.items[currentPostIndex - 1];
 
 <nav class="flex justify-between items-center sticky bottom-[40%]">
   {nextPost &&
-  <a href={`/posts/${nextPost.fields.slug}`} class="group">
+  <a href={`/posts/${nextPost.fields.slug}`} class="group w-lg pr-4">
     <iconify-icon icon="gg:arrow-left" class="text-3xl group-hover:-translate-x-4 duration-150"></iconify-icon>
-    <h1 class="font-bold text-lg w-lg">{nextPost.fields.title}</h1>
+    <h1 class="font-bold">{nextPost.fields.title}</h1>
     <small>{nextPost.fields.date}</small>
   </a>}
 
   <div />
 
   {previousPost &&
-  <a href={`/posts/${previousPost.fields.slug}`} class="text-right group">
+  <a href={`/posts/${previousPost.fields.slug}`} class="group w-lg 4l-4 text-right">
     <iconify-icon icon="gg:arrow-right" class="text-3xl group-hover:translate-x-4 duration-150"></iconify-icon>
-    <h1 class="font-bold text-lg w-lg">{previousPost.fields.title}</h1>
+    <h1 class="font-bold">{previousPost.fields.title}</h1>
     <small>{previousPost.fields.date}</small>
   </a>}
 </nav>
