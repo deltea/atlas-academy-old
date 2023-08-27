@@ -1,9 +1,9 @@
 ---
+import DestinationsGrid from "$components/DestinationsGrid.svelte";
 import PageCover from "$components/PageCover.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
 import type { Destination } from "$lib/contentful";
 import { contentfulClient } from "$lib/contentful";
-import { image } from "$lib/utils";
 
 const destinations = await contentfulClient.getEntries<Destination>({
   content_type: "destination",
@@ -15,15 +15,5 @@ const destinations = await contentfulClient.getEntries<Destination>({
     <h1 class="emphasis">Destinations</h1>
   </PageCover>
 
-  <ul class="text-neutral grid grid-cols-4 gap-0.5">
-    {destinations.items.map(item => (
-      <li>
-        <a href={`/destinations/${item.fields.slug}`}
-          style={{ backgroundImage: `url('${image(item.fields.cover?.fields.file?.url, 800)}')`}}
-          class="block h-80 bg-cover bg-center text-white relative dim-image">
-          <h1 class="absolute left-6 bottom-6 font-bold uppercase text-sm">{item.fields.name}</h1>
-        </a>
-      </li>
-    ))}
-  </ul>
+  <DestinationsGrid client:load destinations={destinations} />
 </BaseLayout>

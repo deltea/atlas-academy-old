@@ -15,6 +15,8 @@ export interface BlogPost {
   }
 }
 
+export type Continent = "Asia" | "Americas" | "Africa" | "Europe" | "Middle East";
+
 export interface Destination {
   contentTypeId: "destination",
   fields: {
@@ -23,7 +25,7 @@ export interface Destination {
     short: EntryFieldTypes.Text,
     cover: EntryFieldTypes.AssetLink,
     description: EntryFieldTypes.RichText,
-    continent: EntryFieldTypes.Text,
+    continent: EntryFieldTypes.Text<Continent>,
     heading: EntryFieldTypes.Text
   }
 }
