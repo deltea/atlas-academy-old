@@ -31,7 +31,6 @@
 
   function openModal(index: number) {
     currentIndex = index;
-    modal.classList.remove("is-hidden");
     modal.showModal();
   }
 
