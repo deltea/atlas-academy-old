@@ -95,7 +95,13 @@
 
     <div class="w-3/5 space-y-8 mt-6 h-full pointer-events-auto">
       <h1 class="font-bold text-2xl">{currentPhoto.fields.title}</h1>
-      <small class="italic text-base">{currentPhoto.fields.city}, {currentPhoto.fields.country?.fields.short}</small>
+      <small class="italic text-base">
+        {currentPhoto.fields.city},
+        <a href="/destinations/{currentPhoto.fields.country?.fields.slug}"
+          class="hover:text-theme duration-200">
+          {currentPhoto.fields.country?.fields.short}
+        </a>
+      </small>
       <h2 class="text-lg">{currentPhoto.fields.description}</h2>
     </div>
 
