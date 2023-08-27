@@ -15,11 +15,11 @@ const nextPost = allPosts.items[currentPostIndex + 1];
 const previousPost = allPosts.items[currentPostIndex - 1];
 ---
 
-<nav class="flex justify-between items-center">
+<nav class="flex justify-between items-center sticky bottom-[40%]">
   {nextPost &&
   <a href={`/posts/${nextPost.fields.slug}`} class="group">
     <iconify-icon icon="gg:arrow-left" class="text-3xl group-hover:-translate-x-4 duration-150"></iconify-icon>
-    <h1 class="font-bold text-lg">{nextPost.fields.title}</h1>
+    <h1 class="font-bold text-lg w-lg">{nextPost.fields.title}</h1>
     <small>{nextPost.fields.date}</small>
   </a>}
 
@@ -28,7 +28,7 @@ const previousPost = allPosts.items[currentPostIndex - 1];
   {previousPost &&
   <a href={`/posts/${previousPost.fields.slug}`} class="text-right group">
     <iconify-icon icon="gg:arrow-right" class="text-3xl group-hover:translate-x-4 duration-150"></iconify-icon>
-    <h1 class="font-bold text-lg">{previousPost.fields.title}</h1>
+    <h1 class="font-bold text-lg w-lg">{previousPost.fields.title}</h1>
     <small>{previousPost.fields.date}</small>
   </a>}
 </nav>

@@ -43,6 +43,7 @@ module.exports = {
         "xs": "2rem",
         "sm": "4rem",
         "md": "8rem",
+        "lg": "15rem",
         "navbar": "6rem",
         "small-navbar": "5rem",
         "tall": "24rem",
