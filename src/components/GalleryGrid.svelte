@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { GalleryPhoto } from "$lib/contentful";
-  import { image } from "$lib/utils";
+  import { clamp, image } from "$lib/utils";
   import type { Entry, EntryCollection } from "contentful";
   import "iconify-icon";
   import { scale } from "svelte/transition";
@@ -35,7 +35,7 @@
   }
 
   function changePhoto(direction: -1 | 1) {
-    currentIndex += direction;
+    currentIndex = clamp(currentIndex + direction, 0, entries.items.length - 1);
   }
 
   function keyPress(e: KeyboardEvent) {
