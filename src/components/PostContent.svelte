@@ -35,12 +35,9 @@
 
       let wrapper = document.createElement("div");
 
-      console.log("Group: ", i);
-
       if (group.length >= 3) {
         let tempGroup = group;
         layout = [];
-        console.log("cool");
 
         while (tempGroup.length > 0) {
           landscapes = tempGroup.filter(image => image.naturalWidth >= image.naturalHeight);
@@ -90,7 +87,7 @@
       wrapper.style.display = "grid";
       wrapper.style.gap = "0.5rem";
       wrapper.style.gridTemplateAreas = layout.map(col => `"${col.join(" ")}"`).join(" ");
-      wrapper.style.gridTemplateRows = new Array(layout.length).fill("20rem").join(" ");
+      wrapper.style.gridTemplateRows = new Array(layout.length).fill("15rem").join(" ");
 
       group[0].parentNode?.insertBefore(wrapper, group[0]);
       group.forEach((figure, i) => {

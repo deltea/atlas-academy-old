@@ -70,7 +70,6 @@
     <iconify-icon icon="mdi:close" class="text-3xl"></iconify-icon>
   </button>
 
-
   <div class="pointer-events-none flex justify-center h-4/5 items-center gap-8">
     {#if currentIndex > 0}
       <button class="h-full px-8 group pointer-events-auto"
