@@ -32,13 +32,10 @@ export async function getStaticPaths() {
               url ?
 
               // Actual image
-              `<figure class="text-center">
-                <img
-                  src="${image(url)}"
-                  alt="${alt}"
-                  class="w-full h-full"/>
-                <!-- <figcaption class="text-neutral-400 font-thin mt-2">${caption}</figcaption> -->
-              </figure>` :
+              `<img
+                src="${image(url)}"
+                alt="${alt}"
+                class="w-full h-full object-cover"/>` :
 
               // Placeholder
               `<div class="border-dashed border-neutral dark:border-white border-2 w-full h-96 flex flex-col justify-center items-center rounded-lg">

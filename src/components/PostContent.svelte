@@ -7,7 +7,7 @@
 
   let contentContainer: HTMLElement;
   let headings: NodeListOf<HTMLHeadingElement>;
-  let imageGroup: HTMLElement[][] = [];
+  let imageGroup: HTMLImageElement[][] = [];
 
   function scrollToSection(id: string) {
     const target = document.getElementById(id) as HTMLHeadingElement;
@@ -15,32 +15,88 @@
   }
 
   onMount(() => {
-    let tempImages: HTMLElement[] = [];
-    const figures = Array.from(contentContainer.querySelectorAll("figure"));
+    let tempImages: HTMLImageElement[] = [];
+    const images = Array.from(contentContainer.querySelectorAll("img"));
 
-    figures.forEach(figure => {
+    images.forEach(figure => {
       tempImages.push(figure);
 
-      if (figure.nextElementSibling?.tagName !== "FIGURE") {
+      if (figure.nextElementSibling?.tagName !== "IMG") {
         imageGroup.push([...tempImages]);
         tempImages = [];
       }
     });
 
-    imageGroup.forEach(group => {
-      group.forEach((figure, i) => {
-        const isSingleImage = (group.length % 2 !== 0) && (i === group.length - 1);
-        if (isSingleImage) {
-          figure.classList.add("w-full");
-          figure.querySelector("img")?.classList.add("h-tall");
-        } else {
-          figure.classList.add("w-1/2");
-          figure.querySelector("img")?.classList.add("h-short");
-        }
+    imageGroup.forEach((group, i) => {
+      let layout: string[][] = [new Array(group.length).fill("").map((_, i) => `image${i}`)];
 
-        figure.classList.add("px-1");
-        figure.classList.add("inline-block");
-        figure.querySelector("img")?.classList.add("object-cover");
+      let landscapes = group.filter(image => image.naturalWidth >= image.naturalHeight);
+      let portraits = group.filter(image => image.naturalWidth < image.naturalHeight);
+
+      let wrapper = document.createElement("div");
+
+      console.log("Group: ", i);
+
+      if (group.length >= 3) {
+        let tempGroup = group;
+        layout = [];
+        console.log("cool");
+
+        while (tempGroup.length > 0) {
+          landscapes = tempGroup.filter(image => image.naturalWidth >= image.naturalHeight);
+          portraits = tempGroup.filter(image => image.naturalWidth < image.naturalHeight);
+
+          // Two landscapes and one portrait to the side
+          if (landscapes.length >= 2 && portraits.length >= 1) {
+            layout.push([
+              `image${group.indexOf(landscapes[0])} image${group.indexOf(portraits[0])}`
+            ]);
+            layout.push([
+              `image${group.indexOf(landscapes[1])} image${group.indexOf(portraits[0])}`
+            ]);
+
+            tempGroup = tempGroup.filter(image => image !== landscapes[0] && image !== landscapes[1] && image !== portraits[0]);
+          }
+
+          // Four or six or eight portraits
+          else if (portraits.length >= 2) {
+            layout.push([
+              `image${group.indexOf(portraits[0])} image${group.indexOf(portraits[1])}`
+            ]);
+
+            tempGroup = tempGroup.filter(image => image !== portraits[0] && image !== portraits[1]);
+          }
+
+          // Single image by itsef below the three
+          else {
+            console.log("single");
+
+            layout.push([`image${group.indexOf(tempGroup[0])} image${group.indexOf(tempGroup[0])}`]);
+            tempGroup = tempGroup.filter(image => image !== tempGroup[0]);
+          }
+        }
+      } else {
+        if (landscapes.length === 2 || (portraits.length === 1 && landscapes.length === 1)) {
+          layout = [["image0"], ["image1"]];
+        } else if (portraits.length === 2) {
+          layout = [["image0 image1"]];
+        } else {
+          layout = [["image0"]];
+        }
+      }
+
+      console.log(layout);
+
+      wrapper.style.display = "grid";
+      wrapper.style.gap = "0.5rem";
+      wrapper.style.gridTemplateAreas = layout.map(col => `"${col.join(" ")}"`).join(" ");
+      wrapper.style.gridTemplateRows = new Array(layout.length).fill("20rem").join(" ");
+
+      group[0].parentNode?.insertBefore(wrapper, group[0]);
+      group.forEach((figure, i) => {
+        figure.style.gridArea = `image${i}`;
+
+        wrapper.appendChild(figure);
       });
     });
 
