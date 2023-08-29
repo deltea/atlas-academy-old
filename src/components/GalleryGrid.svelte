@@ -4,6 +4,7 @@
   import type { Entry, EntryCollection } from "contentful";
   import "iconify-icon";
   import { scale } from "svelte/transition";
+  import "iconify-icon";
 
   export let entries: EntryCollection<GalleryPhoto, "WITHOUT_UNRESOLVABLE_LINKS", string>;
   export let destinations: EntryCollection<Destination, "WITHOUT_UNRESOLVABLE_LINKS", string>;
@@ -50,6 +51,13 @@
 </script>
 
 <section class="grid grid-cols-10 gap-y-4 my-16">
+  <button
+    class="flex flex-col justify-center items-center group gap-2"
+    on:click={() => currentDestination = "all"}>
+    <iconify-icon icon="mdi:earth" class="text-4xl group-hover:scale-125 group-active:scale-90 duration-200"></iconify-icon>
+    <h1>All</h1>
+  </button>
+
   {#if destinations}
     {#each destinations.items as destination}
       <button
@@ -58,7 +66,7 @@
         <img
           src="https://flagsapi.com/{destination.fields.code}/flat/48.png"
           alt={destination.fields.code}
-          class="group-hover:scale-125 duration-200">
+          class="group-hover:scale-125 group-active:scale-90 duration-200">
         <h1>{destination.fields.short}</h1>
       </button>
     {/each}
@@ -67,7 +75,7 @@
 
 <section class="grid grid-cols-5 dark:gap-2 gap-1 duration-200">
   {#each entries.items as item, i (item.fields.slug)}
-    {#if item.fields.country?.fields.short === currentDestination}
+    {#if item.fields.country?.fields.short === currentDestination || currentDestination === "all"}
       <button on:click={() => openModal(i)} class="group">
         <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 400)}')`}
           class="bg-cover bg-center aspect-square flex justify-center items-center group-hover:bg-neutral-600 bg-blend-multiply duration-200">
