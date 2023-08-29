@@ -75,14 +75,15 @@
   });
 </script>
 
+<!-- Outline -->
 <section class="mx-lg my-sm space-y-8">
   {#if headings && headings.length !== 0}
     <div class="w-full bg-neutral-100 dark:bg-neutral-700 p-8">
-      <h1 class="font-bold text-2xl emphasis">
+      <h1 class="font-bold text-xl emphasis">
         Outline
       </h1>
 
-      <hr class="border-neutral-200 dark:border-neutral-600 my-8 duration-200">
+      <hr class="border-neutral-200 dark:border-neutral-600 mt-4 mb-8 duration-200">
 
       <div class="space-y-4">
         {#each headings as heading, i}
@@ -95,7 +96,7 @@
     </div>
   {/if}
 
-  {#if podcast}
+  {#if podcast.length > 0}
     <iframe
       title="Spotify Player Embed"
       src={`https://open.spotify.com/embed/episode/${extractSpotifyId(podcast)}?utm_source=generator&theme=0`}
