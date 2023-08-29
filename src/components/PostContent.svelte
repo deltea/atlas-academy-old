@@ -1,6 +1,7 @@
 <script lang="ts">
   import { extractSpotifyId } from "$lib/utils";
   import { onMount } from "svelte";
+  import { type ImageType, layouts, longAspect, landscapeAspect, portraitAspect } from "$lib/imageLayouts";
 
   export let content: string;
   export let podcasts: string[];
@@ -15,85 +16,59 @@
   }
 
   onMount(() => {
+    console.clear();
+
     let tempImages: HTMLImageElement[] = [];
     const images = Array.from(contentContainer.querySelectorAll("img"));
 
-    images.forEach(figure => {
-      tempImages.push(figure);
+    images.forEach(image => {
+      tempImages.push(image);
 
-      if (figure.nextElementSibling?.tagName !== "IMG") {
+      if (image.nextElementSibling?.tagName !== "IMG") {
         imageGroup.push([...tempImages]);
         tempImages = [];
       }
     });
 
     imageGroup.forEach((group, i) => {
-      let layout: string[][] = [new Array(group.length).fill("").map((_, i) => `image${i}`)];
+      console.log(
+        "--------\n",
+        "😎 Group: ", i,
+        "\n--------",
+      );
+      const imageTypes: ImageType[] = group.map(
+        image => image.naturalWidth > image.naturalHeight ? "landscape" : "portrait"
+      );
 
-      let landscapes = group.filter(image => image.naturalWidth >= image.naturalHeight);
-      let portraits = group.filter(image => image.naturalWidth < image.naturalHeight);
+      const layoutSize = layouts[group.length];
+      const layout = layoutSize.find(layout =>
+        layout.order.toString() === imageTypes.toString()
+      );
 
-      let wrapper = document.createElement("div");
-
-      if (group.length >= 3) {
-        let tempGroup = group;
-        layout = [];
-
-        while (tempGroup.length > 0) {
-          landscapes = tempGroup.filter(image => image.naturalWidth >= image.naturalHeight);
-          portraits = tempGroup.filter(image => image.naturalWidth < image.naturalHeight);
-
-          // Two landscapes and one portrait to the side
-          if (landscapes.length >= 2 && portraits.length >= 1) {
-            layout.push([
-              `image${group.indexOf(landscapes[0])} image${group.indexOf(portraits[0])}`
-            ]);
-            layout.push([
-              `image${group.indexOf(landscapes[1])} image${group.indexOf(portraits[0])}`
-            ]);
-
-            tempGroup = tempGroup.filter(image => image !== landscapes[0] && image !== landscapes[1] && image !== portraits[0]);
-          }
-
-          // Four or six or eight portraits
-          else if (portraits.length >= 2) {
-            layout.push([
-              `image${group.indexOf(portraits[0])} image${group.indexOf(portraits[1])}`
-            ]);
-
-            tempGroup = tempGroup.filter(image => image !== portraits[0] && image !== portraits[1]);
-          }
-
-          // Single image by itsef below the three
-          else {
-            console.log("single");
-
-            layout.push([`image${group.indexOf(tempGroup[0])} image${group.indexOf(tempGroup[0])}`]);
-            tempGroup = tempGroup.filter(image => image !== tempGroup[0]);
-          }
-        }
-      } else {
-        if (landscapes.length === 2 || (portraits.length === 1 && landscapes.length === 1)) {
-          layout = [["image0"], ["image1"]];
-        } else if (portraits.length === 2) {
-          layout = [["image0 image1"]];
-        } else {
-          layout = [["image0"]];
-        }
+      if (layout) {
+        layout.grid.forEach((item, i) => {
+          group[i].style.gridRow = `${item.rowStart} / ${item.rowEnd}`;
+          group[i].style.gridColumn = `${item.colStart} / ${item.colEnd}`;
+        });
       }
 
-      console.log(layout);
+      console.log("🌟 Layout: ", layout);
 
+      const wrapper = document.createElement("div");
       wrapper.style.display = "grid";
       wrapper.style.gap = "0.5rem";
-      wrapper.style.gridTemplateAreas = layout.map(col => `"${col.join(" ")}"`).join(" ");
-      wrapper.style.gridTemplateRows = new Array(layout.length).fill("15rem").join(" ");
 
       group[0].parentNode?.insertBefore(wrapper, group[0]);
-      group.forEach((figure, i) => {
-        figure.style.gridArea = `image${i}`;
+      group.forEach((image, i) => {
+        if (layout?.grid[i].colEnd === 3) {
+          image.style.aspectRatio = longAspect;
+        } else if (image.naturalWidth >= image.naturalHeight) {
+          image.style.aspectRatio = landscapeAspect;
+        } else {
+          image.style.aspectRatio = portraitAspect;
+        }
 
-        wrapper.appendChild(figure);
+        wrapper.appendChild(image);
       });
     });
 
