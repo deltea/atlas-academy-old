@@ -51,12 +51,63 @@
   </header>
 
   <!-- Navigation -->
-  <div class="emphasis text-xs flex gap-6 items-center duration-200">
-    <a href="/">Home</a>
-    <a href="/destinations">Destinations</a>
-    <a href="/blog">Blog</a>
-    <a href="/gallery">Gallery</a>
-    <a href="/about">About</a>
+  <div class="emphasis text-xs flex gap-6 items-stretch duration-200 h-full">
+    <a class="inline-block h-10" href="/">Home</a>
+
+    <div class="group relative">
+      <a class="inline-block h-10" href="/destinations">Destinations</a>
+
+      <!-- Destinations dropdown -->
+      {#if !(scrolledScreenHeight && scrollDirection === "down")}
+        <div class="flex-col group-hover:pointer-events-auto pointer-events-none flex group-hover:opacity-100 opacity-0 absolute top-10 left-0 bg-white dark:bg-neutral p-4 w-lg text-black dark:text-white duration-200">
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
+            href="/destinations/usa">
+            美國 <span class="font-normal">USA</span>
+          </a>
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
+            href="/destinations/montenegro">
+            黑山共和國 <span class="font-normal">Montenegro</span>
+          </a>
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
+            href="/destinations/france">
+            法國 <span class="font-normal">France</span>
+          </a>
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
+            href="/destinations/italy">
+            義大利 <span class="font-normal">Italy</span>
+          </a>
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
+            href="/destinations/japan">
+            日本 <span class="font-normal">Japan</span>
+          </a>
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
+            href="/destinations/taiwan">
+            台灣 <span class="font-normal">Taiwan</span>
+          </a>
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
+            href="/destinations/thailand">
+            泰國 <span class="font-normal">Thailand</span>
+          </a>
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
+            href="/destinations/turkey">
+            土耳其 <span class="font-normal">Turkey</span>
+          </a>
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
+            href="/destinations/portugal">
+            葡萄牙 <span class="font-normal">Portugal</span>
+          </a>
+          <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200 text-theme flex gap-2 items-center"
+            href="/destinations/portugal">
+            <iconify-icon icon="mdi:plus-circle-outline" class="text-lg"></iconify-icon>
+            更多 <span class="font-normal">More Places</span>
+          </a>
+        </div>
+      {/if}
+    </div>
+
+    <a class="inline-block h-10" href="/blog">Blog</a>
+    <a class="inline-block h-10" href="/gallery">Gallery</a>
+    <a class="inline-block h-10" href="/about">About</a>
 
     <ThemeButton />
   </div>
