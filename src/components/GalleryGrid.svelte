@@ -73,6 +73,14 @@
   {/if}
 </section>
 
+{#if entries.items.filter(item =>
+  item.fields.country?.fields.short === currentDestination
+).length === 0 && currentDestination !== "all"}
+  <div class="flex justify-center items-center h-40">
+    <p>Oops! Looks like no photos were found in {currentDestination}.</p>
+  </div>
+{/if}
+
 <section class="grid grid-cols-5 dark:gap-2 gap-1 duration-200">
   {#each entries.items as item, i (item.fields.slug)}
     {#if item.fields.country?.fields.short === currentDestination || currentDestination === "all"}
@@ -87,14 +95,6 @@
     {/if}
   {/each}
 </section>
-
-{#if entries.items.filter(item =>
-  item.fields.country?.fields.short === currentDestination
-).length === 0 && currentDestination !== "all"}
-  <div class="flex justify-center items-center h-40">
-    <p>Oops! Looks like no photos were found in {currentDestination}</p>
-  </div>
-{/if}
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
