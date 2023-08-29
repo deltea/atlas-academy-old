@@ -4,7 +4,7 @@
   import { type ImageType, layouts, longAspect, landscapeAspect, portraitAspect } from "$lib/imageLayouts";
 
   export let content: string;
-  export let podcasts: string[];
+  export let podcast: string;
 
   let contentContainer: HTMLElement;
   let headings: NodeListOf<HTMLHeadingElement>;
@@ -95,14 +95,14 @@
     </div>
   {/if}
 
-  {#each podcasts as podcast}
+  {#if podcast}
     <iframe
       title="Spotify Player Embed"
       src={`https://open.spotify.com/embed/episode/${extractSpotifyId(podcast)}?utm_source=generator&theme=0`}
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
       class="w-full h-20"></iframe>
-  {/each}
+  {/if}
 
   <article bind:this={contentContainer}>{@html content}</article>
 </section>
