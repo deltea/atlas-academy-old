@@ -90,7 +90,7 @@
 
 {#if entries.items.filter(item =>
   item.fields.country?.fields.short === currentDestination
-).length === 0}
+).length === 0 && currentDestination !== "all"}
   <div class="flex justify-center items-center h-40">
     <p>Oops! Looks like no photos were found in {currentDestination}</p>
   </div>
