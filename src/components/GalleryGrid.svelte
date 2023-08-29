@@ -4,7 +4,6 @@
   import type { Entry, EntryCollection } from "contentful";
   import "iconify-icon";
   import { scale } from "svelte/transition";
-  import "iconify-icon";
 
   export let entries: EntryCollection<GalleryPhoto, "WITHOUT_UNRESOLVABLE_LINKS", string>;
   export let destinations: EntryCollection<Destination, "WITHOUT_UNRESOLVABLE_LINKS", string>;
