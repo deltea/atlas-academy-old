@@ -26,7 +26,8 @@ export interface Destination {
     cover: EntryFieldTypes.AssetLink,
     description: EntryFieldTypes.RichText,
     continent: EntryFieldTypes.Text<Continent>,
-    heading: EntryFieldTypes.Text
+    heading: EntryFieldTypes.Text,
+    code: EntryFieldTypes.Text,
   }
 }
 

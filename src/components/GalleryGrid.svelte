@@ -1,16 +1,18 @@
 <script lang="ts">
-  import type { GalleryPhoto } from "$lib/contentful";
+  import type { Destination, GalleryPhoto } from "$lib/contentful";
   import { clamp, image } from "$lib/utils";
   import type { Entry, EntryCollection } from "contentful";
   import "iconify-icon";
   import { scale } from "svelte/transition";
 
   export let entries: EntryCollection<GalleryPhoto, "WITHOUT_UNRESOLVABLE_LINKS", string>;
+  export let destinations: EntryCollection<Destination, "WITHOUT_UNRESOLVABLE_LINKS", string>;
 
   let modal: HTMLDialogElement;
   let currentIndex = 0;
   let currentPhoto: Entry<GalleryPhoto, "WITHOUT_UNRESOLVABLE_LINKS", string>;
   let loading = false;
+  let currentDestination = "all";
 
   $: currentPhoto = entries.items[currentIndex];
   $: {
@@ -47,18 +49,44 @@
   }
 </script>
 
+<section class="grid grid-cols-10 gap-y-4 my-16">
+  {#if destinations}
+    {#each destinations.items as destination}
+      <button
+        class="flex flex-col justify-center items-center group"
+        on:click={() => currentDestination = destination.fields.short}>
+        <img
+          src="https://flagsapi.com/{destination.fields.code}/flat/48.png"
+          alt={destination.fields.code}
+          class="group-hover:scale-125 duration-200">
+        <h1>{destination.fields.short}</h1>
+      </button>
+    {/each}
+  {/if}
+</section>
+
 <section class="grid grid-cols-5 dark:gap-2 gap-1 duration-200">
   {#each entries.items as item, i (item.fields.slug)}
-    <button on:click={() => openModal(i)} class="group">
-      <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 400)}')`}
-        class="bg-cover bg-center aspect-square flex justify-center items-center group-hover:bg-neutral-600 bg-blend-multiply duration-200">
-        <h1 class="w-3/4 text-xl group-hover:opacity-100 opacity-0 duration-200 text-white">
-          {item.fields.title}
-        </h1>
-      </div>
-    </button>
+    {#if item.fields.country?.fields.short === currentDestination}
+      <button on:click={() => openModal(i)} class="group">
+        <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 400)}')`}
+          class="bg-cover bg-center aspect-square flex justify-center items-center group-hover:bg-neutral-600 bg-blend-multiply duration-200">
+          <h1 class="w-3/4 text-xl group-hover:opacity-100 opacity-0 duration-200 text-white">
+            {item.fields.title}
+          </h1>
+        </div>
+      </button>
+    {/if}
   {/each}
 </section>
+
+{#if entries.items.filter(item =>
+  item.fields.country?.fields.short === currentDestination
+).length === 0}
+  <div class="flex justify-center items-center h-40">
+    <p>Oops! Looks like no photos were found in {currentDestination}</p>
+  </div>
+{/if}
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
