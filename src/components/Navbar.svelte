@@ -59,7 +59,7 @@
 
       <!-- Destinations dropdown -->
       {#if !(scrolledScreenHeight && scrollDirection === "down")}
-        <div class="flex-col group-hover:pointer-events-auto pointer-events-none flex group-hover:opacity-100 opacity-0 absolute top-10 left-0 bg-white dark:bg-neutral p-4 w-lg text-black dark:text-white duration-200">
+        <div class="flex-col group-hover:pointer-events-auto pointer-events-none flex group-hover:opacity-100 opacity-0 absolute top-10 left-0 bg-white dark:bg-neutral p-4 w-lg text-black dark:text-white duration-200 shadow-lg">
           <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
             href="/destinations/usa">
             美國 <span class="font-normal">USA</span>
@@ -97,7 +97,7 @@
             葡萄牙 <span class="font-normal">Portugal</span>
           </a>
           <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200 text-theme flex gap-2 items-center"
-            href="/destinations/portugal">
+            href="/destinations">
             <iconify-icon icon="mdi:plus-circle-outline" class="text-lg"></iconify-icon>
             更多 <span class="font-normal">More Places</span>
           </a>
