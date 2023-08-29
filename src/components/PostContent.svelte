@@ -31,11 +31,6 @@
     });
 
     imageGroup.forEach((group, i) => {
-      console.log(
-        "--------\n",
-        "😎 Group: ", i,
-        "\n--------",
-      );
       const imageTypes: ImageType[] = group.map(
         image => image.naturalWidth > image.naturalHeight ? "landscape" : "portrait"
       );
@@ -51,8 +46,6 @@
           group[i].style.gridColumn = `${item.colStart} / ${item.colEnd}`;
         });
       }
-
-      console.log("🌟 Layout: ", layout);
 
       const wrapper = document.createElement("div");
       wrapper.style.display = "grid";
