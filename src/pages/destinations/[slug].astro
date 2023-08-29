@@ -2,10 +2,11 @@
 import BaseLayout from "$layouts/BaseLayout.astro";
 import { BlogPost, contentfulClient } from "$lib/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import type { Destination } from "$lib/contentful";
-import PageCover from "$components/PageCover.astro";
-import type { InferGetStaticPropsType } from "astro";
 import { image } from "$lib/utils";
+import type { Destination } from "$lib/contentful";
+import type { InferGetStaticPropsType } from "astro";
+import PageCover from "$components/PageCover.astro";
+import PostBadge from "$components/PostBadge.astro";
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
@@ -28,7 +29,7 @@ export async function getStaticPaths() {
   return pages;
 }
 
-const { name, cover, heading, continent, description } = Astro.props;
+const { name, cover, heading, description } = Astro.props;
 const { slug } = Astro.params;
 
 const posts = await contentfulClient.getEntries<BlogPost>({
@@ -56,13 +57,16 @@ const posts = await contentfulClient.getEntries<BlogPost>({
     <section>
       <h1 class="lowercase tracking-widest font-semibold text-neutral-500 dark:text-neutral-400">all posts</h1>
       <hr class="border-theme border-[1.5px] w-sm my-4">
-      <ul class="grid grid-cols-4 gap-4">
+      <ul class="grid grid-cols-4 gap-8">
         {posts.items.map(item => (
           <li class="space-y-2 group">
             <a href={`/posts/${item.fields.slug}`}
               style={`background-image: url(${image(item.fields.cover?.fields.file?.url, 500)});`}
               class="block h-40 bg-cover bg-center hover-image"></a>
-            <h1 class="font-semibold">{item.fields.title}</h1>
+            <div>
+              <h1 class="font-semibold inline">{item.fields.title}</h1>
+              <PostBadge type={item.fields.type} />
+            </div>
           </li>
         ))}
       </ul>
