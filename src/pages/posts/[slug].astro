@@ -4,7 +4,7 @@ import PageCover from "$components/PageCover.astro";
 import PostContent from "$components/PostContent.svelte";
 import PostNavigation from "$components/PostNavigation.astro";
 import { contentfulClient } from "$lib/contentful";
-import { image } from "$lib/utils";
+import { formatDate, image } from "$lib/utils";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import type { BlogPost } from "$lib/contentful";
@@ -44,7 +44,7 @@ export async function getStaticPaths() {
           },
         },
       }),
-      date: new Date(item.fields.date).toLocaleDateString(),
+      date: formatDate(item.fields.date),
       cover: item.fields.cover?.fields.file?.url,
       destination: item.fields.destination?.fields.slug,
       podcast: item.fields.podcast ?? [],

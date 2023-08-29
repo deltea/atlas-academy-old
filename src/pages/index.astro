@@ -4,7 +4,7 @@ import PageCover from "$components/PageCover.astro";
 
 import type { BlogPost } from "$lib/contentful";
 import { contentfulClient } from "$lib/contentful";
-import { image } from "$lib/utils";
+import { formatDate, image } from "$lib/utils";
 
 import HorizontalScroll from "$components/HorizontalScroll.svelte";
 import TiltCard from "$components/TiltCard.svelte";
@@ -51,7 +51,7 @@ const featuredPosts = await contentfulClient.getEntries<BlogPost>({
             alt={item.fields.cover?.fields.description}
             class="min-h-[80%] object-cover hover-image">
           <div>
-            <time class="text-xs text-neutral-500">{item.fields.date}</time>
+            <time class="text-xs text-neutral-400">{new Date(item.fields.date).toLocaleDateString()}</time>
             <h1 class="text-sm">{item.fields.title}</h1>
           </div>
         </a>
@@ -70,7 +70,10 @@ const featuredPosts = await contentfulClient.getEntries<BlogPost>({
           client:visible
           url={`/posts/${item.fields.slug}`}
           src={image(item.fields.cover?.fields.file?.url, 1000)}>
-          {item.fields.title}
+          <div>
+            <h1 class="font-semibold">{item.fields.title}</h1>
+            <small class="uppercase">{formatDate(item.fields.date)}</small>
+          </div>
         </TiltCard>
       ))}
     </div>

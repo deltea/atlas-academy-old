@@ -30,7 +30,7 @@ const rightPosts = entries.items.filter((_, i) => i % 2 !== 0);
           <a href={`/posts/${post.fields.slug}`} class="flex flex-col h-52 group relative items-end text-right">
             <div class="mx-sm">
               <h1 class="emphasis text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300">
-                {post.fields.date}
+                {new Date(post.fields.date).toLocaleDateString()}
               </h1>
               <h2 class="text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300">{post.fields.title}</h2>
               <img src={image(post.fields.cover?.fields.file?.url, 200)}
@@ -57,7 +57,7 @@ const rightPosts = entries.items.filter((_, i) => i % 2 !== 0);
           <a href={`/posts/${post.fields.slug}`} class="flex flex-col h-52 group relative items-start">
             <div class="mx-sm">
               <h1 class="emphasis text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300">
-                {post.fields.date}
+                {new Date(post.fields.date).toLocaleDateString()}
               </h1>
               <h2 class="text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300">{post.fields.title}</h2>
               <img src={image(post.fields.cover?.fields.file?.url, 200)}

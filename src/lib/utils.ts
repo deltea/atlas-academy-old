@@ -17,3 +17,12 @@ export function extractSpotifyId(url: string) {
 export function clamp(num: number, min: number, max: number) {
   return Math.min(Math.max(num, min), max);
 }
+
+export function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.toLocaleDateString("en-US", { month: "short" });
+  const year = date.getFullYear();
+
+  return `${day} ${month} ${year}`;
+}
