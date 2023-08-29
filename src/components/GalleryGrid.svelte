@@ -86,10 +86,11 @@
     {#if item.fields.country?.fields.short === currentDestination || currentDestination === "all"}
       <button on:click={() => openModal(i)} class="group">
         <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 400)}')`}
-          class="bg-cover bg-center aspect-square flex justify-center items-center group-hover:bg-neutral-600 bg-blend-multiply duration-200">
-          <h1 class="w-3/4 text-xl group-hover:opacity-100 opacity-0 duration-200 text-white">
-            {item.fields.title}
-          </h1>
+          class="bg-cover bg-center aspect-square group-hover:bg-neutral-600 bg-blend-multiply duration-200 relative">
+          <div class="w-3/4 group-hover:opacity-100 group-hover:-translate-y-1/2 opacity-0 duration-200 text-white absolute left-1/2 top-1/2 -translate-x-1/2">
+            <h1 class="text-xl">{item.fields.title}</h1>
+            <small class="text-sm italic relative top-4">{item.fields.city}</small>
+          </div>
         </div>
       </button>
     {/if}
