@@ -51,15 +51,15 @@
   </header>
 
   <!-- Navigation -->
-  <div class="emphasis text-xs flex gap-6 items-stretch duration-200 h-full">
-    <a class="inline-block h-10" href="/">Home</a>
+  <div class="emphasis text-xs flex gap-6 items-center duration-200 h-full">
+    <a href="/">Home</a>
 
-    <div class="group relative">
-      <a class="inline-block h-10" href="/destinations">Destinations</a>
+    <div class="group relative h-20 flex items-center">
+      <a href="/destinations">Destinations</a>
 
       <!-- Destinations dropdown -->
       {#if !(scrolledScreenHeight && scrollDirection === "down")}
-        <div class="flex-col group-hover:pointer-events-auto pointer-events-none flex group-hover:opacity-100 opacity-0 absolute top-10 left-0 bg-white dark:bg-neutral p-4 w-lg text-black dark:text-white duration-200 shadow-lg">
+        <div class="flex-col group-hover:pointer-events-auto pointer-events-none flex group-hover:opacity-100 opacity-0 absolute top-16 left-0 bg-white dark:bg-neutral p-4 w-lg text-black dark:text-white duration-200 shadow-lg">
           <a class="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-600 duration-200"
             href="/destinations/usa">
             美國 <span class="font-normal">USA</span>
@@ -105,9 +105,9 @@
       {/if}
     </div>
 
-    <a class="inline-block h-10" href="/blog">Blog</a>
-    <a class="inline-block h-10" href="/gallery">Gallery</a>
-    <a class="inline-block h-10" href="/about">About</a>
+    <a href="/blog">Blog</a>
+    <a href="/gallery">Gallery</a>
+    <a href="/about">About</a>
 
     <ThemeButton />
   </div>
