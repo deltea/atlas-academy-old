@@ -20,9 +20,13 @@
     currentIndex;
     loading = true;
   }
-  $: currentGallery = currentDestination === "all" ? entries.items : entries.items.filter(item =>
-    item.fields.country?.fields.short === currentDestination
-  )
+  $: {
+    currentGallery = currentDestination === "all" ?
+      entries.items :
+      entries.items.filter(item =>
+        item.fields.country?.fields.short === currentDestination
+      ).reverse();
+  }
 
   function lightDismiss(e: MouseEvent) {
     const target = e.target as HTMLDialogElement;
@@ -108,7 +112,7 @@
     <button on:click={closeModal} class="absolute right-2 top-2">
       <iconify-icon icon="mdi:close" class="text-3xl"></iconify-icon>
     </button>
-  
+
     <div class="pointer-events-none flex justify-center h-4/5 items-center gap-8">
       {#if currentIndex > 0}
         <button class="h-full px-8 group pointer-events-auto"
@@ -117,20 +121,20 @@
           <iconify-icon icon="mdi:chevron-left" class="text-4xl group-hover:scale-125 group-hover:-translate-x-2 group-active:scale-90 duration-150 origin-center"></iconify-icon>
         </button>
       {/if}
-  
+
       {#if loading}
         <div class="bg-white dark:bg-neutral min-w-[30rem] h-[30rem] flex justify-center items-center pointer-events-auto">
           <iconify-icon icon="ph:spinner-bold"
             class="text-4xl animate-spin text-neutral dark:text-white"></iconify-icon>
         </div>
       {/if}
-  
+
       <img src={image(currentPhoto.fields.image?.fields.file?.url, 1000)}
         alt={currentPhoto.fields.title}
         class="w-2/5 pointer-events-auto"
         class:hidden={loading}
         on:load={() => loading = false}>
-  
+
       <div class="w-3/5 space-y-8 mt-6 h-full pointer-events-auto">
         <h1 class="font-bold text-2xl">{currentPhoto.fields.title}</h1>
         <small class="italic text-base">
@@ -142,7 +146,7 @@
         </small>
         <h2 class="text-lg">{currentPhoto.fields.description}</h2>
       </div>
-  
+
       {#if currentIndex < currentGallery.length - 1}
         <button class="h-full px-8 group pointer-events-auto"
           on:click={() => changePhoto(1)}
