@@ -26,3 +26,9 @@ export function formatDate(dateString: string) {
 
   return `${day} ${month} ${year}`;
 }
+
+export function formatRelativeTime(dateString: string) {
+  const formatter = Intl.RelativeTimeFormat("en");
+  const diff = new Date() - new Date(dateString);
+  return formatter.format()
+}

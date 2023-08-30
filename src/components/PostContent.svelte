@@ -16,8 +16,6 @@
   }
 
   onMount(() => {
-    console.clear();
-
     let tempImages: HTMLImageElement[] = [];
     const images = Array.from(contentContainer.querySelectorAll("img"));
 

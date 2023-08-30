@@ -21,6 +21,10 @@
   @apply group-hover:scale-[103%] duration-300 group-active:scale-95;
 }
 
+.text-input {
+  @apply p-2 outline-none;
+}
+
 @font-face {
   font-family: "ZhanKu";
   src: url(/fonts/ZhanKu.ttf);
