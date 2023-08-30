@@ -16,52 +16,54 @@
   }
 
   onMount(() => {
-    let tempImages: HTMLImageElement[] = [];
-    const images = Array.from(contentContainer.querySelectorAll("img"));
+    window.onload = () => {
+      let tempImages: HTMLImageElement[] = [];
+      const images = Array.from(contentContainer.querySelectorAll("img"));
 
-    images.forEach(image => {
-      tempImages.push(image);
+      images.forEach(image => {
+        tempImages.push(image);
 
-      if (image.nextElementSibling?.tagName !== "IMG") {
-        imageGroup.push([...tempImages]);
-        tempImages = [];
-      }
-    });
+        if (image.nextElementSibling?.tagName !== "IMG") {
+          imageGroup.push([...tempImages]);
+          tempImages = [];
+        }
+      });
 
-    imageGroup.forEach((group, i) => {
-      const imageTypes: ImageType[] = group.map(
-        image => image.naturalWidth > image.naturalHeight ? "landscape" : "portrait"
-      );
+      imageGroup.forEach((group, i) => {
+        const imageTypes: ImageType[] = group.map(
+          image => image.naturalWidth > image.naturalHeight ? "landscape" : "portrait"
+        );
 
-      const layoutSize = layouts[group.length];
-      const layout = layoutSize.find(layout =>
-        layout.order.toString() === imageTypes.toString()
-      );
+        const layoutSize = layouts[group.length];
+        const layout = layoutSize.find(layout =>
+          layout.order.toString() === imageTypes.toString()
+        );
 
-      if (layout) {
-        layout.grid.forEach((item, i) => {
-          group[i].style.gridRow = `${item.rowStart} / ${item.rowEnd}`;
-          group[i].style.gridColumn = `${item.colStart} / ${item.colEnd}`;
-        });
-      }
-
-      const wrapper = document.createElement("div");
-      wrapper.style.display = "grid";
-      wrapper.style.gap = "0.5rem";
-
-      group[0].parentNode?.insertBefore(wrapper, group[0]);
-      group.forEach((image, i) => {
-        if (layout?.grid[i].colEnd === 3) {
-          image.style.aspectRatio = longAspect;
-        } else if (image.naturalWidth >= image.naturalHeight) {
-          image.style.aspectRatio = landscapeAspect;
-        } else {
-          image.style.aspectRatio = portraitAspect;
+        if (layout) {
+          layout.grid.forEach((item, i) => {
+            group[i].style.gridRow = `${item.rowStart} / ${item.rowEnd}`;
+            group[i].style.gridColumn = `${item.colStart} / ${item.colEnd}`;
+          });
         }
 
-        wrapper.appendChild(image);
+        const wrapper = document.createElement("div");
+        wrapper.style.display = "grid";
+        wrapper.style.gap = "0.5rem";
+
+        group[0].parentNode?.insertBefore(wrapper, group[0]);
+        group.forEach((image, i) => {
+          if (layout?.grid[i].colEnd === 3) {
+            image.style.aspectRatio = longAspect;
+          } else if (image.naturalWidth >= image.naturalHeight) {
+            image.style.aspectRatio = landscapeAspect;
+          } else {
+            image.style.aspectRatio = portraitAspect;
+          }
+
+          wrapper.appendChild(image);
+        });
       });
-    });
+    }
 
     headings = contentContainer.querySelectorAll("h1");
 
