@@ -77,6 +77,8 @@ const { content, title, date, cover, destination, podcast } = Astro.props;
     content={content}
     podcast={podcast} />
 
+  <hr class="border-neutral-600 mx-lg">
+
   <Comments post={slug ?? ""} client:load />
 
   <PostNavigation slug={slug} />
