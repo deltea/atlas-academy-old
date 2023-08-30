@@ -49,11 +49,11 @@
   }
 </script>
 
-<section class="grid grid-cols-10 gap-y-4 my-16">
+<section class="grid grid-cols-10 gap-y-4 my-16 items-end">
   <button
-    class="flex flex-col justify-center items-center group gap-2"
+    class="flex flex-col justify-center items-center group gap-1"
     on:click={() => currentDestination = "all"}>
-    <iconify-icon icon="mdi:earth" class="text-4xl group-hover:scale-125 group-active:scale-90 duration-200"></iconify-icon>
+    <iconify-icon icon="ion:earth" class="text-4xl group-hover:scale-125 group-active:scale-90 duration-200"></iconify-icon>
     <h1>All</h1>
   </button>
 
