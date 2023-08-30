@@ -20,7 +20,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description}>
     <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
-    <script type="module">
+    <script async type="module">
       localStorage.theme === "dark" ||
 			(!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
 				? document.documentElement.classList.add("dark")

@@ -19,7 +19,6 @@
 
   function checkScrollDirection(e: WheelEvent) {
     scrollDirection = e.deltaY < 0 ? "up" : "down";
-    console.log(scrollDirection);
   }
 
   function backToTop() {
