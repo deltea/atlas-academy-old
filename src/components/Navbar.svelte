@@ -111,7 +111,6 @@
     <ThemeButton />
   </div>
 
-
   <!-- Socials -->
   <div class="space-x-2">
     <a href="https://www.facebook.com/worldschool.atlas.academy"

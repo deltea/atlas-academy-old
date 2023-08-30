@@ -6,7 +6,7 @@ const { slug } = Astro.props;
 
 const allPosts = await contentfulClient.getEntries<BlogPost>({
   content_type: "blogPost",
-  order: ["fields.date"],
+  order: ["-fields.date"],
 });
 
 const currentPost = allPosts.items.find(item => item.fields.slug === slug);
