@@ -68,7 +68,7 @@
 </div>
 
 {#if postsByYear}
-  <TimelineSection posts={postsByYear["2024"]} year={2024} />
-  <TimelineSection posts={postsByYear["2023"]} year={2023} />
   <TimelineSection posts={postsByYear["2022"]} year={2022} />
+  <TimelineSection posts={postsByYear["2023"]} year={2023} />
+  <TimelineSection posts={postsByYear["2024"]} year={2024} />
 {/if}
