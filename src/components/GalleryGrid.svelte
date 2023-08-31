@@ -40,8 +40,10 @@
   }
 
   function openModal(index: number) {
-    currentIndex = index;
-    modal.showModal();
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+      currentIndex = index;
+      modal.showModal();
+    }
   }
 
   function changePhoto(direction: -1 | 1) {
@@ -89,7 +91,7 @@
 {#if currentGallery}
   <section class="lg:grid lg:grid-cols-5 grid-cols-1 dark:gap-2 gap-1 duration-200 flex lg:overflow-x-hidden overflow-x-auto items-start snap-x snap-mandatory">
     {#each currentGallery as item, i (item.fields.slug)}
-      <button on:click={() => openModal(i)} class="group lg:space-y-0 space-y-4 lg:my-0 my-4 lg:pointer-events-auto pointer-events-none min-w-full snap-center">
+      <button on:click={() => openModal(i)} class="group lg:space-y-0 space-y-4 min-w-full snap-center">
         <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 400)}')`}
           class="bg-cover bg-center aspect-square lg:group-hover:bg-neutral-600 bg-blend-multiply duration-200 relative">
           <div class="w-3/4 lg:group-hover:opacity-100 lg:group-hover:-translate-y-1/2 opacity-0 duration-200 text-white absolute left-1/2 top-1/2 -translate-x-1/2">
@@ -103,7 +105,7 @@
           <div class="italic">
             <h1 class="inline">{item.fields.city},</h1>
             <a href="/destinations/{item.fields.country?.fields.slug}"
-              class="hover:text-theme duration-200 pointer-events-auto">
+              class="hover:text-theme duration-200">
               {item.fields.country?.fields.short}
             </a>
           </div>
@@ -122,7 +124,7 @@
   <dialog bind:this={modal}
     on:click={lightDismiss}
     on:keydown={keyPress}
-    class="fixed backdrop:bg-black backdrop:bg-opacity-80 w-full h-full bg-transparent text-white lg:flex justify-center items-center outline-none hidden">
+    class="fixed backdrop:bg-black backdrop:bg-opacity-80 w-full h-full bg-transparent text-white flex justify-center items-center outline-none">
     <button on:click={closeModal} class="absolute right-2 top-2">
       <iconify-icon icon="mdi:close" class="text-3xl"></iconify-icon>
     </button>
