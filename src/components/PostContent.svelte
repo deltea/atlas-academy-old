@@ -1,6 +1,6 @@
 <script lang="ts">
   import { extractSpotifyId } from "$lib/utils";
-  import { onMount } from "svelte";
+  import { afterUpdate, onMount } from "svelte";
   import { type ImageType, layouts, longAspect, landscapeAspect, portraitAspect } from "$lib/imageLayouts";
 
   export let content: string;
@@ -15,8 +15,11 @@
     window.scrollTo(0, target.offsetTop - 100);
   }
 
-  onMount(() => {
+  afterUpdate(() => {
+
     window.onload = () => {
+      console.log("Loaded");
+
       let tempImages: HTMLImageElement[] = [];
       const images = Array.from(contentContainer.querySelectorAll("img"));
 
@@ -64,7 +67,9 @@
         });
       });
     }
+  });
 
+  onMount(() => {
     headings = contentContainer.querySelectorAll("h1");
 
     if (headings) {
