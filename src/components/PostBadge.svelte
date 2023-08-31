@@ -2,7 +2,7 @@
   import type { PostType } from "$lib/contentful";
   import "iconify-icon";
 
-  export let type: PostType;
+  export let type: PostType | string;
 </script>
 
 {#if type === "Podcast"}

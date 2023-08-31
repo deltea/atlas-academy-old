@@ -57,7 +57,7 @@ const posts = await contentfulClient.getEntries<BlogPost>({
     <section>
       <h1 class="lowercase tracking-widest font-semibold text-neutral-500 dark:text-neutral-400">all posts</h1>
       <hr class="border-theme border-[1.5px] w-sm my-4">
-      <ul class="grid grid-cols-4 gap-8">
+      <ul class="grid lg:grid-cols-4 grid-cols-1 gap-8">
         {posts.items.map(item => (
           <li class="space-y-2 group">
             <a href={`/posts/${item.fields.slug}`}
