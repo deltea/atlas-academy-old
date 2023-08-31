@@ -22,7 +22,7 @@ export interface Database {
         Insert: {
           author?: string | null
           body?: string | null
-          created_at?: string
+          created_at: string
           id?: number
           post?: string | null
         }

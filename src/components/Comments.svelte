@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Tables } from "$lib/database";
   import { supabase } from "$lib/supabase";
-  import { formatDate } from "$lib/utils";
+  import { formatRelativeTime } from "$lib/utils";
   import { onMount } from "svelte";
   import "iconify-icon";
 
@@ -80,7 +80,7 @@
             <div>
               <h2 class="font-bold inline">{comment.author}</h2>
               -
-              <span class="font-normal text-neutral-4 00">{formatDate(comment.created_at)}</span>
+              <span class="font-normal text-neutral-400">{formatRelativeTime(comment.created_at)}</span>
             </div>
             <p>{comment.body}</p>
           </li>
