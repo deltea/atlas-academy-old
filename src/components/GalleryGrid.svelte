@@ -100,7 +100,7 @@
 
         <div class="lg:hidden block space-y-2">
           <h1 class="font-semibold text-lg">{item.fields.title}</h1>
-          <div>
+          <div class="italic">
             <h1 class="inline">{item.fields.city},</h1>
             <a href="/destinations/{item.fields.country?.fields.slug}"
               class="hover:text-theme duration-200 pointer-events-auto">
