@@ -1,5 +1,8 @@
 import contentful, { EntryFieldTypes } from "contentful";
 
+export type Continent = "Asia" | "Americas" | "Africa" | "Europe" | "Middle East";
+export type PostType = "Podcast" | "Reflection";
+
 export interface BlogPost {
   contentTypeId: "blogPost",
   fields: {
@@ -14,8 +17,6 @@ export interface BlogPost {
     featured: EntryFieldTypes.Boolean,
   }
 }
-
-export type Continent = "Asia" | "Americas" | "Africa" | "Europe" | "Middle East";
 
 export interface Destination {
   contentTypeId: "destination",

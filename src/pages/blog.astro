@@ -3,28 +3,12 @@ import BaseLayout from "$layouts/BaseLayout.astro";
 import PageCover from "$components/PageCover.astro";
 import { contentfulClient } from "$lib/contentful";
 import type { BlogPost } from "$lib/contentful";
-import TimelineSection from "$components/TimelineSection.astro";
-import type { Entry } from "contentful";
+import Timeline from "$components/Timeline.svelte";
 
 const entries = await contentfulClient.getEntries<BlogPost>({
   content_type: "blogPost",
   order: ["-fields.date"],
 });
-
-let posts = entries.items;
-
-function filterPostsByYear(
-  posts: Entry<BlogPost, "WITHOUT_UNRESOLVABLE_LINKS", string>[],
-  year: number
-) {
-  return posts.filter(item => new Date(item.fields.date).getFullYear() === year);
-}
-
-const postsByYear = {
-  "2022": filterPostsByYear(entries.items, 2022),
-  "2023": filterPostsByYear(entries.items, 2023),
-  "2024": filterPostsByYear(entries.items, 2024),
-}
 ---
 
 <BaseLayout title="Blog">
@@ -32,11 +16,5 @@ const postsByYear = {
     <h1 class="emphasis">Blog</h1>
   </PageCover>
 
-  <div class="sticky -mb-small-navbar duration-200 h-small-navbar top-0 z-10 flex items-center">
-
-  </div>
-
-  <TimelineSection posts={postsByYear["2024"]} year={2024} />
-  <TimelineSection posts={postsByYear["2023"]} year={2023} />
-  <TimelineSection posts={postsByYear["2022"]} year={2022} />
+  <Timeline client:load entries={entries} />
 </BaseLayout>

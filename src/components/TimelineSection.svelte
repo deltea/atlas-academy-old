@@ -1,28 +1,27 @@
----
-import PostBadge from "$components/PostBadge.astro";
-import type { BlogPost } from "$lib/contentful";
-import { image } from "$lib/utils";
-import type { Entry } from "contentful";
+<script lang="ts">
+  import PostBadge from "$components/PostBadge.svelte";
+  import type { BlogPost } from "$lib/contentful";
+  import { image } from "$lib/utils";
+  import type { Entry } from "contentful";
 
-interface Props {
-  posts: Entry<BlogPost, "WITHOUT_UNRESOLVABLE_LINKS", string>[],
-  year: number,
-}
+  export let posts: Entry<BlogPost, "WITHOUT_UNRESOLVABLE_LINKS", string>[];
+  export let year: number;
 
-const { posts, year } = Astro.props;
+  let leftPosts: Entry<BlogPost, "WITHOUT_UNRESOLVABLE_LINKS", string>[] = [];
+  let rightPosts: Entry<BlogPost, "WITHOUT_UNRESOLVABLE_LINKS", string>[] = [];
 
-const leftPosts = posts.filter((_, i) => i % 2 === 0);
-const rightPosts = posts.filter((_, i) => i % 2 !== 0);
----
+  $: leftPosts = posts.filter((_, i) => i % 2 === 0);
+  $: rightPosts = posts.filter((_, i) => i % 2 !== 0);
+</script>
 
-{posts.length > 0 && (
+{#if posts.length > 0}
   <header class="sticky bg-white dark:bg-neutral duration-200 h-small-navbar top-0 text-center z-20 flex justify-center items-center">
     <h1>{year}</h1>
   </header>
 
   <section class="flex justify-between mb-2">
     <ul class="w-1/2 mt-[4rem]">
-      {leftPosts.map(post => (
+      {#each leftPosts as post}
         <li>
           <a href={`/posts/${post.fields.slug}`} class="flex flex-col h-52 group relative items-end text-right">
             <div class="mx-sm">
@@ -42,7 +41,7 @@ const rightPosts = posts.filter((_, i) => i % 2 !== 0);
             <div class="border-neutral-400 group-hover:border-neutral dark:group-hover:border-white border w-10 absolute top-3 duration-300"></div>
           </a>
         </li>
-      ))}
+      {/each}
     </ul>
 
     <div class="relative">
@@ -52,7 +51,7 @@ const rightPosts = posts.filter((_, i) => i % 2 !== 0);
     </div>
 
     <ul class="w-1/2 mt-[calc(4rem+6rem)]">
-      {rightPosts.map(post => (
+      {#each rightPosts as post}
         <li>
           <a href={`/posts/${post.fields.slug}`} class="flex flex-col h-52 group relative items-start">
             <div class="mx-sm">
@@ -72,7 +71,7 @@ const rightPosts = posts.filter((_, i) => i % 2 !== 0);
             <div class="border-neutral-400 group-hover:border-neutral dark:group-hover:border-white border w-10 absolute top-3 duration-300"></div>
           </a>
         </li>
-      ))}
+      {/each}
     </ul>
   </section>
-)}
+{/if}
