@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { fly } from "svelte/transition";
+  import { fly, slide } from "svelte/transition";
   import ThemeButton from "$components/ThemeButton.svelte";
   import "iconify-icon";
 
@@ -8,6 +8,7 @@
   let atPageBottom = false;
   let scrollDirection: "up" | "down" = "up";
   let scrolledScreenHeight = false;
+  let navOpen = false;
 
   function checkPageTop() {
     atPageTop = window.scrollY === 0;
@@ -39,18 +40,18 @@
 </script>
 
 <nav class={`flex justify-between fixed w-full z-50 p-xs items-center duration-500
-  ${atPageTop ?
+  ${atPageTop && !navOpen ?
     "text-white bg-transparent h-navbar" :
     "text-neutral bg-white dark:bg-neutral dark:text-white h-small-navbar shadow-lg"}
-  ${scrolledScreenHeight && scrollDirection === "down" ? "-top-[7rem]" : "top-0"}`}>
+  ${scrolledScreenHeight && scrollDirection === "down" && !navOpen ? "-top-[7rem]" : "top-0"}`}>
 
   <!-- Title -->
-  <header class={`font-fancy group ${atPageTop ? "text-3xl" : "text-2xl"} duration-100`}>
+  <header class={`font-fancy group ${atPageTop && !navOpen ? "text-3xl" : "text-2xl"} duration-100`}>
     <a class="group-hover:-top-1.5 top-0 relative duration-150" href="/">世界是学校</a>
   </header>
 
   <!-- Navigation -->
-  <div class="emphasis text-xs flex gap-6 items-center duration-200 h-full">
+  <div class="emphasis text-xs gap-6 items-center duration-200 h-full lg:flex hidden">
     <a href="/">Home</a>
 
     <div class="group relative h-20 flex items-center">
@@ -112,7 +113,7 @@
   </div>
 
   <!-- Socials -->
-  <div class="space-x-2">
+  <div class="space-x-2 lg:block hidden">
     <a href="https://www.facebook.com/worldschool.atlas.academy"
       class="group"
       target="_blank">
@@ -137,8 +138,58 @@
       </iconify-icon>
     </a>
   </div>
+
+  <button
+    on:click={() => navOpen = !navOpen}
+    class="text-3xl duration-200 origin-[50%_40%] lg:hidden block {navOpen ? "rotate-90" : "rotate-0"}">
+    {#if navOpen}
+      <iconify-icon icon="mdi:close"></iconify-icon>
+    {:else}
+      <iconify-icon icon="mdi:menu"></iconify-icon>
+    {/if}
+  </button>
 </nav>
 
+<!-- Navigation modal for mobile -->
+{#if navOpen}
+  <nav
+    class="bg-white dark:bg-neutral text-neutral dark:text-white duration-500 h-[calc(100vh-5rem)] w-screen fixed z-[100] bottom-0 flex justify-center items-center"
+    transition:slide>
+    <div class="gap-12 flex flex-col items-center">
+      <div class="text-center space-y-1">
+        <a class="block uppercase font-bold text-lg tracking-widest" href="/">Home</a>
+        <a class="block uppercase font-bold text-lg tracking-widest" href="/destinations">Destinations</a>
+        <a class="block uppercase font-bold text-lg tracking-widest" href="/blog">Blog</a>
+        <a class="block uppercase font-bold text-lg tracking-widest" href="/gallery">Gallery</a>
+        <a class="block uppercase font-bold text-lg tracking-widest" href="/about">About</a>
+      </div>
+
+      <div class="space-x-2">
+        <a href="https://www.facebook.com/worldschool.atlas.academy">
+          <iconify-icon icon="mdi:facebook"
+            class="text-xl">
+          </iconify-icon>
+        </a>
+
+        <a href="https://open.spotify.com/show/7xuJTB7kCfKB0JVBkgW4k3">
+          <iconify-icon icon="mdi:spotify"
+            class="text-xl">
+          </iconify-icon>
+        </a>
+
+        <a href="https://podcasts.apple.com/us/podcast/%E4%B8%96%E7%95%8C%E6%98%AF%E5%AD%B8%E6%A0%A1-worldschooling/id1646258789">
+          <iconify-icon icon="fa:podcast"
+            class="text-xl">
+          </iconify-icon>
+        </a>
+      </div>
+
+      <ThemeButton size="lg" />
+    </div>
+  </nav>
+{/if}
+
+<!-- Back to top button -->
 {#if !atPageTop && !atPageBottom}
   <button
     class="fixed bottom-8 right-8 text-2xl text-white rounded-full shadow-lg bg-neutral-600 w-12 h-12 flex justify-center items-center z-50"
