@@ -29,7 +29,7 @@ const images = [
     <p>把一個家，連根拔起，收進一個行李，帶著兩個孩子，花兩年時間到世界各地過著遊牧生活，在每一個城市花時間築巢， 在當地的市場買東西，適應不同的氣候，接觸不同的文化和語言，這聽起來浪漫無比的想法，對我們來說，是一場冒險和挑戰，相信會換來我們一輩子難忘的回憶及經歷。</p>
   </section>
 
-  <ul class="grid grid-cols-3 grid-rows-3 gap-4">
+  <ul class="grid lg:grid-cols-3 grid-cols-1 grid-rows-3 gap-4">
     {images.map(image => (
       <li style={{ backgroundImage: `url(/about/${image.index}.jpg)`}}
         class="bg-cover bg-center h-96 relative text-white">
