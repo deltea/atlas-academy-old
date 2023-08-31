@@ -13,7 +13,7 @@
   }
 </script>
 
-<div class="space-x-8 text-center mb-sm">
+<div class="space-x-8 text-center lg:my-sm my-xs overflow-x-auto whitespace-nowrap">
   <button on:click={setContinent} name="All" class="emphasis">All</button>
   <button on:click={setContinent} name="Asia" class="emphasis">Asia</button>
   <button on:click={setContinent} name="Europe" class="emphasis">Europe</button>
@@ -22,7 +22,7 @@
   <button on:click={setContinent} name="Americas" class="emphasis">Americas</button>
 </div>
 
-<ul class="text-neutral grid grid-cols-4 gap-1">
+<ul class="text-neutral grid lg:grid-cols-4 grid-cols-1 gap-1">
   {#each destinations.items as item (item.fields.slug)}
     {#if currentContinent === "All" || item.fields.continent === currentContinent}
       <li>
