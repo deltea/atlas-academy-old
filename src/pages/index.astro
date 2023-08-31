@@ -28,8 +28,8 @@ const featuredPosts = await contentfulClient.getEntries<BlogPost>({
     <h1 class="font-fancy text-4xl">世界是学校</h1>
   </PageCover>
 
-  <section class="flex items-stretch gap-8">
-    <div class="bg-[url(/homepage/home.jpg)] bg-cover bg-center w-4/5"></div>
+  <section class="flex lg:flex-row flex-col-reverse items-stretch gap-8">
+    <img src="/homepage/home.jpg" alt="Home" class="object-cover lg:w-2/5 w-full">
     <span class="space-y-4">
       <p>我們一家把房子、車子和家當都賣掉，帶著一卡皮箱，到世界各地旅行，把世界當學校。 這裡紀錄了我們一家四口體驗生活即教育的環球旅程。</p>
       <p>這裡沒有行程規劃，或是購物、餐廳資訊，有的是我們在路途中的經歷和反思，有的是爸媽和孩子一起脫離教育體系，從生活中學習知識和能力的過程，從實際腳踏過的土地來了解地理和歷史。</p>
@@ -64,7 +64,7 @@ const featuredPosts = await contentfulClient.getEntries<BlogPost>({
   <section>
     <h1 class="text-xl emphasis mb-8">Featured Posts</h1>
 
-    <div class="flex h-tall items-stretch gap-4">
+    <div class="flex lg:flex-row flex-col lg:h-tall h-[80rem] items-stretch gap-4">
       {featuredPosts.items.map(item => (
         <TiltCard
           client:visible
