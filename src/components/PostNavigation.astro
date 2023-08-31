@@ -1,5 +1,6 @@
 ---
 import { BlogPost, contentfulClient } from "$lib/contentful";
+import { formatDate } from "$lib/utils";
 import "iconify-icon";
 
 const { slug } = Astro.props;
@@ -20,7 +21,7 @@ const previousPost = allPosts.items[currentPostIndex - 1];
   <a href={`/posts/${nextPost.fields.slug}`} class="group w-lg pr-8 pointer-events-auto">
     <iconify-icon icon="gg:arrow-left" class="text-3xl group-hover:-translate-x-4 duration-150"></iconify-icon>
     <h1 class="font-bold">{nextPost.fields.title}</h1>
-    <small>{nextPost.fields.date}</small>
+    <small class="uppercase">{formatDate(nextPost.fields.date)}</small>
   </a>}
 
   <div />
@@ -29,6 +30,6 @@ const previousPost = allPosts.items[currentPostIndex - 1];
   <a href={`/posts/${previousPost.fields.slug}`} class="group w-lg pl-8 pointer-events-auto text-right">
     <iconify-icon icon="gg:arrow-right" class="text-3xl group-hover:translate-x-4 duration-150"></iconify-icon>
     <h1 class="font-bold">{previousPost.fields.title}</h1>
-    <small>{previousPost.fields.date}</small>
+    <small class="uppercase">{formatDate(previousPost.fields.date)}</small>
   </a>}
 </nav>
