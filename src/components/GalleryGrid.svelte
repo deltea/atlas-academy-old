@@ -57,7 +57,7 @@
   }
 </script>
 
-<section class="grid grid-cols-10 gap-y-4 my-16 items-end">
+<section class="grid lg:grid-cols-10 grid-cols-3 gap-y-4 my-16 items-end">
   <button
     class="flex flex-col justify-center items-center group gap-1"
     on:click={() => currentDestination = "all"}>
@@ -87,15 +87,29 @@
 {/if}
 
 {#if currentGallery}
-  <section class="grid grid-cols-5 dark:gap-2 gap-1 duration-200">
+  <section class="lg:grid lg:grid-cols-5 grid-cols-1 dark:gap-2 gap-1 duration-200 flex lg:overflow-x-hidden overflow-x-auto items-start snap-x snap-mandatory">
     {#each currentGallery as item, i (item.fields.slug)}
-      <button on:click={() => openModal(i)} class="group">
+      <button on:click={() => openModal(i)} class="group lg:space-y-0 space-y-4 lg:my-0 my-4 lg:pointer-events-auto pointer-events-none min-w-full snap-center">
         <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 400)}')`}
-          class="bg-cover bg-center aspect-square group-hover:bg-neutral-600 bg-blend-multiply duration-200 relative">
-          <div class="w-3/4 group-hover:opacity-100 group-hover:-translate-y-1/2 opacity-0 duration-200 text-white absolute left-1/2 top-1/2 -translate-x-1/2">
+          class="bg-cover bg-center aspect-square lg:group-hover:bg-neutral-600 bg-blend-multiply duration-200 relative">
+          <div class="w-3/4 lg:group-hover:opacity-100 lg:group-hover:-translate-y-1/2 opacity-0 duration-200 text-white absolute left-1/2 top-1/2 -translate-x-1/2">
             <h1 class="text-xl">{item.fields.title}</h1>
             <small class="text-sm italic relative top-4">{item.fields.city}</small>
           </div>
+        </div>
+
+        <div class="lg:hidden block space-y-2">
+          <h1 class="font-semibold text-lg">{item.fields.title}</h1>
+          <div>
+            <h1 class="inline">{item.fields.city},</h1>
+            <a href="/destinations/{item.fields.country?.fields.slug}"
+              class="hover:text-theme duration-200 pointer-events-auto">
+              {item.fields.country?.fields.short}
+            </a>
+          </div>
+          <h2>
+            {item.fields.description}
+          </h2>
         </div>
       </button>
     {/each}
@@ -108,7 +122,7 @@
   <dialog bind:this={modal}
     on:click={lightDismiss}
     on:keydown={keyPress}
-    class="fixed backdrop:bg-black backdrop:bg-opacity-80 w-full h-full bg-transparent text-white flex justify-center items-center outline-none">
+    class="fixed backdrop:bg-black backdrop:bg-opacity-80 w-full h-full bg-transparent text-white lg:flex justify-center items-center outline-none hidden">
     <button on:click={closeModal} class="absolute right-2 top-2">
       <iconify-icon icon="mdi:close" class="text-3xl"></iconify-icon>
     </button>
