@@ -16,7 +16,6 @@
   }
 
   afterUpdate(() => {
-
     window.onload = () => {
       console.log("Loaded");
 
@@ -80,8 +79,8 @@
   });
 </script>
 
-<!-- Outline -->
-<section class="mx-lg my-sm space-y-8">
+<section class="lg:mx-lg lg:my-sm space-y-8">
+  <!-- Outline -->
   {#if headings && headings.length !== 0}
     <div class="w-full bg-neutral-100 dark:bg-neutral-700 p-8">
       <h1 class="font-bold text-xl emphasis">

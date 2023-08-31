@@ -45,7 +45,7 @@
     <iconify-icon icon="mdi:loading" class="animate-spin text-5xl"></iconify-icon>
   </section>
 {:else}
-  <section class="text-white mx-lg my-8">
+  <section class="text-white lg:mx-lg my-8">
     <form class="space-y-8 w-full mb-16" on:submit|preventDefault={createComment}>
       <div class="space-y-2">
         <label for="body" class="uppercase tracking-widest font-semibold text-sm">Add comment</label>
