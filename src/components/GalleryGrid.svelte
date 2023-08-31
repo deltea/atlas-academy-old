@@ -114,13 +114,15 @@
     </button>
 
     <div class="pointer-events-none flex justify-center h-4/5 items-center gap-8">
-      {#if currentIndex > 0}
-        <button class="h-full px-8 group pointer-events-auto"
-          on:click={() => changePhoto(-1)}
-          transition:scale={{ duration: 200 }}>
-          <iconify-icon icon="mdi:chevron-left" class="text-4xl group-hover:scale-125 group-hover:-translate-x-2 group-active:scale-90 duration-150 origin-center"></iconify-icon>
-        </button>
-      {/if}
+      <div class="w-24">
+        {#if currentIndex > 0}
+          <button class="h-full w-full group pointer-events-auto"
+            on:click={() => changePhoto(-1)}
+            transition:scale={{ duration: 200 }}>
+            <iconify-icon icon="mdi:chevron-left" class="text-4xl group-hover:scale-125 group-hover:-translate-x-2 group-active:scale-90 duration-150 origin-center"></iconify-icon>
+          </button>
+        {/if}
+      </div>
 
       {#if loading}
         <div class="bg-white dark:bg-neutral min-w-[30rem] h-[30rem] flex justify-center items-center pointer-events-auto">
@@ -147,13 +149,15 @@
         <h2 class="text-lg">{currentPhoto.fields.description}</h2>
       </div>
 
-      {#if currentIndex < currentGallery.length - 1}
-        <button class="h-full px-8 group pointer-events-auto"
-          on:click={() => changePhoto(1)}
-          transition:scale={{ duration: 200 }}>
-          <iconify-icon icon="mdi:chevron-right" class="text-4xl group-hover:scale-125 group-hover:translate-x-2 group-active:scale-90 duration-150 origin-center"></iconify-icon>
-        </button>
-      {/if}
+      <div class="w-24">
+        {#if currentIndex < currentGallery.length - 1}
+          <button class="h-full w-full group pointer-events-auto"
+            on:click={() => changePhoto(1)}
+            transition:scale={{ duration: 200 }}>
+            <iconify-icon icon="mdi:chevron-right" class="text-4xl group-hover:scale-125 group-hover:translate-x-2 group-active:scale-90 duration-150 origin-center"></iconify-icon>
+          </button>
+        {/if}
+      </div>
     </div>
   </dialog>
 {/if}
