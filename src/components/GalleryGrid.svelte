@@ -59,6 +59,7 @@
   }
 </script>
 
+<!-- Country filters -->
 <section class="grid lg:grid-cols-10 grid-cols-3 gap-y-4 my-16 items-end">
   <button
     class="flex flex-col justify-center items-center group gap-1"
@@ -80,6 +81,11 @@
       </button>
     {/each}
   {/if}
+</section>
+
+<section class="lg:hidden flex flex-col items-center mb-16">
+  <iconify-icon icon="mdi:gesture-swipe-horizontal" class="text-4xl"></iconify-icon>
+  <span>Swipe left and right to see photos</span>
 </section>
 
 {#if currentGallery.length === 0}
