@@ -48,21 +48,29 @@
   <section class="text-white lg:mx-lg my-8">
     <form class="space-y-8 w-full mb-16" on:submit|preventDefault={createComment}>
       <div class="space-y-2">
-        <label for="body" class="uppercase tracking-widest font-semibold text-sm">Add comment</label>
+        <label
+          for="body"
+          class="uppercase tracking-widest font-semibold text-sm text-neutral dark:text-white">
+          Add comment
+        </label>
         <textarea
           bind:value={bodyInput}
-          class="text-neutral block w-full text-input"
+          class="text-neutral block w-full text-input bg-neutral-100 dark:bg-white"
           rows="5"
           id="body"
           required />
       </div>
 
       <div class="space-y-2">
-        <label for="author" class="uppercase tracking-widest font-semibold text-sm">Name*</label>
+        <label
+          for="author"
+          class="uppercase tracking-widest font-semibold text-sm text-neutral dark:text-white">
+          Name*
+        </label>
         <input
           bind:value={authorInput}
           type="text"
-          class="text-neutral block w-full text-input"
+          class="text-neutral block w-full text-input bg-neutral-100 dark:bg-white"
           id="author"
           required />
       </div>
