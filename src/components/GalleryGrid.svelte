@@ -92,7 +92,7 @@
   <section class="lg:grid lg:grid-cols-5 grid-cols-1 dark:gap-2 gap-1 duration-200 flex lg:overflow-x-hidden overflow-x-auto items-start snap-x snap-mandatory">
     {#each currentGallery as item, i (item.fields.slug)}
       <button on:click={() => openModal(i)} class="group lg:space-y-0 space-y-4 min-w-full snap-center">
-        <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 400)}')`}
+        <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 800)}')`}
           class="bg-cover bg-center aspect-square lg:group-hover:bg-neutral-600 bg-blend-multiply duration-200 relative">
           <div class="w-3/4 lg:group-hover:opacity-100 lg:group-hover:-translate-y-1/2 opacity-0 duration-200 text-white absolute left-1/2 top-1/2 -translate-x-1/2">
             <h1 class="text-xl">{item.fields.title}</h1>
@@ -129,7 +129,7 @@
       <iconify-icon icon="mdi:close" class="text-3xl"></iconify-icon>
     </button>
 
-    <div class="pointer-events-none flex justify-center h-4/5 items-center gap-8">
+    <div class="pointer-events-none flex justify-center h-5/6 gap-8">
       <div class="w-24">
         {#if currentIndex > 0}
           <button class="h-full w-full group pointer-events-auto"
@@ -149,20 +149,20 @@
 
       <img src={image(currentPhoto.fields.image?.fields.file?.url, 1000)}
         alt={currentPhoto.fields.title}
-        class="w-2/5 pointer-events-auto"
+        class="pointer-events-auto"
         class:hidden={loading}
         on:load={() => loading = false}>
 
-      <div class="w-3/5 space-y-8 mt-6 h-full pointer-events-auto">
-        <h1 class="font-bold text-2xl">{currentPhoto.fields.title}</h1>
-        <small class="italic text-base">
+      <div class="space-y-8 w-full h-full">
+        <h1 class="font-bold text-2xl pointer-events-auto">{currentPhoto.fields.title}</h1>
+        <small class="italic text-base pointer-events-auto">
           {currentPhoto.fields.city},
           <a href="/destinations/{currentPhoto.fields.country?.fields.slug}"
             class="hover:text-theme duration-200">
             {currentPhoto.fields.country?.fields.short}
           </a>
         </small>
-        <h2 class="text-lg">{currentPhoto.fields.description}</h2>
+        <h2 class="text-lg pointer-events-auto">{currentPhoto.fields.description}</h2>
       </div>
 
       <div class="w-24">
