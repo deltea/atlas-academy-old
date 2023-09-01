@@ -4,7 +4,7 @@ const { cover, center = false } = Astro.props;
 
 <div
   class:list={[
-    "h-screen w-screen bg-cover bg-center dim-image flex px-sm",
+    "h-screen w-screen bg-cover bg-center dim-image flex px-sm lg:bg-fixed",
     center && "justify-center text-center"
   ]}
   style={{ backgroundImage: `url("${cover}")` }}>
