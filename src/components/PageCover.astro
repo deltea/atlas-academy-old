@@ -3,7 +3,10 @@ const { cover, center = false } = Astro.props;
 ---
 
 <div
-  class={`h-screen w-screen bg-cover bg-center dim-image flex px-sm bg-fixed ${center && "justify-center text-center"}`}
+  class:list={[
+    "h-screen w-screen bg-cover bg-center dim-image flex px-sm",
+    center && "justify-center text-center"
+  ]}
   style={{ backgroundImage: `url("${cover}")` }}>
   <div class="absolute bottom-36 text-3xl space-y-2 text-white uppercase p-xs">
     <slot />
