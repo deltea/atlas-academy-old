@@ -36,6 +36,7 @@ const posts = await contentfulClient.getEntries<BlogPost>({
   content_type: "blogPost",
   "fields.destination.sys.contentType.sys.id": "destination",
   "fields.destination.fields.slug[match]": slug,
+  "order": ["-fields.date"],
 });
 ---
 
