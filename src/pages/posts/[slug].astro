@@ -4,55 +4,61 @@ import PageCover from "$components/PageCover.astro";
 import PostContent from "$components/PostContent.svelte";
 import PostNavigation from "$components/PostNavigation.astro";
 import Comments from "$components/Comments.svelte";
-import { contentfulClient } from "$lib/contentful";
-import { formatDate, image } from "$lib/utils";
-import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import { BLOCKS } from "@contentful/rich-text-types";
-import type { BlogPost } from "$lib/contentful";
+import { formatDate } from "$lib/utils";
+import { notion } from "$lib/notion";
+import { isFullBlock, isFullPage, isFullPageOrDatabase } from "@notionhq/client";
 import type { InferGetStaticPropsType } from "astro";
+import type {
+  PartialBlockObjectResponse,
+  BlockObjectResponse,
+RichTextItemResponse
+} from "@notionhq/client/build/src/api-endpoints"
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export async function getStaticPaths() {
-  const entries = await contentfulClient.getEntries<BlogPost>({
-    content_type: "blogPost",
+  function renderBlock(block: PartialBlockObjectResponse | BlockObjectResponse) {
+    if (!isFullBlock(block)) return;
+
+    if (block.type === "paragraph" && block.paragraph.rich_text.length > 0) {
+      return `<p>${block.paragraph.rich_text[0].plain_text}</p>`;
+    } else if (block.type === "heading_1" && block.heading_1.rich_text.length > 0) {
+      return `<h1>${block.heading_1.rich_text[0].plain_text}</h1>`;
+    } else if (block.type === "image") {
+      return `<img
+        src="${block.image.type === "external" ? block.image.external.url : block.image.file.url}"
+        alt="${block.image.caption}" />`;
+    }
+  }
+
+  const entries = await notion.databases.query({
+    database_id: import.meta.env.NOTION_POSTS_DATABASE_ID
   });
 
-  const pages = entries.items.map(item => ({
-    params: { slug: item.fields.slug },
-    props: {
-      title: item.fields.title,
-      content: documentToHtmlString(item.fields.content, {
-        renderNode: {
-          [BLOCKS.EMBEDDED_ASSET]: (node) => {
-            const url = node.data.target.fields.file?.url;
-            const alt = node.data.target.fields.title ?? "";
+  return await Promise.all(entries.results.map(async page => {
+    if (!isFullPageOrDatabase(page)) return;
 
-            return (
-              url ?
+    const destinationPage = await notion.pages.retrieve({
+      page_id: page.properties.Destination.type === "relation" ? (page.properties.Destination.relation as { id: string}[])[0].id : "",
+    });
+    const destination = isFullPage(destinationPage) && destinationPage.properties.Slug.type === "rich_text" &&  destinationPage.properties.Slug.rich_text[0].plain_text;
 
-              // Actual image
-              `<img
-                src="${image(url)}"
-                alt="${alt}"
-                class="w-full h-full object-cover"/>` :
+    const content = (await notion.blocks.children.list({
+      block_id: page.id,
+    })).results.map(x => renderBlock(x)).join("");
 
-              // Placeholder
-              `<div class="border-dashed border-neutral dark:border-white border-2 w-full h-96 flex flex-col justify-center items-center rounded-lg">
-                <h1 class="font-bold text-3xl">Sorry, it looks like no image was found :(</h1>
-              </div>`
-            );
-          },
-        },
-      }),
-      date: formatDate(item.fields.date),
-      cover: item.fields.cover?.fields.file?.url,
-      destination: item.fields.destination?.fields.slug,
-      podcast: item.fields.podcast ?? [],
-    },
+    return {
+      params: { slug: page.properties.Slug.type === "rich_text" && (page.properties.Slug.rich_text as RichTextItemResponse[])[0].plain_text },
+      props: {
+        title: page.properties.Name.type === "title" && (page.properties.Name.title as RichTextItemResponse[])[0].plain_text,
+        date: formatDate(page.properties.Date.type === "date" ? page.properties.Date.date?.start ?? "" : ""),
+        cover: page.properties.Cover.type === "files" && (page.properties.Cover.files as any)[0].file.url,
+        podcast: page.properties.Podcast.type === "rich_text" ? (page.properties.Podcast.rich_text as RichTextItemResponse[])[0].plain_text : "",
+        destination,
+        content,
+      },
+    }
   }));
-
-  return pages;
 }
 
 const { slug } = Astro.params;

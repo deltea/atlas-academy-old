@@ -5,7 +5,8 @@ interface ImportMetaEnv {
   readonly CONTENTFUL_PREVIEW_TOKEN: string;
 
   readonly NOTION_KEY: string;
-  readonly NOTION_PAGE_ID: string;
+  readonly NOTION_POSTS_DATABASE_ID: string;
+  readonly NOTION_DESINATIONS_DATABASE_ID: string;
 }
 
 interface ImportMeta {
