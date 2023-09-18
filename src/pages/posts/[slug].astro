@@ -11,7 +11,11 @@ import type { InferGetStaticPropsType } from "astro";
 import type {
   PartialBlockObjectResponse,
   BlockObjectResponse,
-RichTextItemResponse
+  RichTextItemResponse,
+RelationPropertyItemObjectResponse,
+TitlePropertyItemObjectResponse,
+DatePropertyItemObjectResponse,
+FilesPropertyItemObjectResponse
 } from "@notionhq/client/build/src/api-endpoints"
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
@@ -35,11 +39,22 @@ export async function getStaticPaths() {
     database_id: import.meta.env.NOTION_POSTS_DATABASE_ID
   });
 
+  interface Properties {
+    Destination: RelationPropertyItemObjectResponse,
+    Slug: RichTextItemResponse,
+    Name: TitlePropertyItemObjectResponse,
+    Date: DatePropertyItemObjectResponse,
+    Cover: FilesPropertyItemObjectResponse,
+    Podcast: RichTextItemResponse,
+  }
+
   return await Promise.all(entries.results.map(async page => {
     if (!isFullPageOrDatabase(page)) return;
 
+    const properties = page.properties as unknown as Properties;
+
     const destinationPage = await notion.pages.retrieve({
-      page_id: page.properties.Destination.type === "relation" ? (page.properties.Destination.relation as { id: string}[])[0].id : "",
+      page_id: properties.Destination.relation.id,
     });
     const destination = isFullPage(destinationPage) && destinationPage.properties.Slug.type === "rich_text" &&  destinationPage.properties.Slug.rich_text[0].plain_text;
 
@@ -48,12 +63,12 @@ export async function getStaticPaths() {
     })).results.map(x => renderBlock(x)).join("");
 
     return {
-      params: { slug: page.properties.Slug.type === "rich_text" && (page.properties.Slug.rich_text as RichTextItemResponse[])[0].plain_text },
+      params: { slug: properties.Slug.plain_text },
       props: {
-        title: page.properties.Name.type === "title" && (page.properties.Name.title as RichTextItemResponse[])[0].plain_text,
-        date: formatDate(page.properties.Date.type === "date" ? page.properties.Date.date?.start ?? "" : ""),
-        cover: page.properties.Cover.type === "files" && (page.properties.Cover.files as any)[0].file.url,
-        podcast: page.properties.Podcast.type === "rich_text" ? (page.properties.Podcast.rich_text as RichTextItemResponse[])[0].plain_text : "",
+        title: properties.Name.title.plain_text,
+        date: formatDate(properties.Date.date?.start ?? ""),
+        cover: properties.Cover.files[0].type === "file" && properties.Cover.files[0].file.url,
+        podcast: properties.Podcast.plain_text,
         destination,
         content,
       },
