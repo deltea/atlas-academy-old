@@ -53,4 +53,6 @@ const contentfulBaseClient = contentful.createClient({
   host: import.meta.env.DEV ? "preview.contentful.com" : "cdn.contentful.com",
 });
 
+f
+
 export const contentfulClient = contentfulBaseClient.withoutUnresolvableLinks;

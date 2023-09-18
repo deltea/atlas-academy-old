@@ -25,6 +25,7 @@
     "vanilla-tilt": "^1.8.1"
   },
   "devDependencies": {
-    "@contentful/rich-text-types": "^16.2.1"
+    "@contentful/rich-text-types": "^16.2.1",
+    "@notionhq/client": "^2.2.13"
   }
 }
