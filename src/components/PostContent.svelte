@@ -82,12 +82,12 @@
 <section class="lg:mx-lg lg:my-sm space-y-8">
   <!-- Outline -->
   {#if headings && headings.length !== 0}
-    <div class="w-full bg-neutral-100 dark:bg-neutral-700 p-8">
+    <div class="w-full bg-neutral-100 dark:bg-neutral-700 p-6">
       <h1 class="font-bold text-xl emphasis">
         Outline
       </h1>
 
-      <hr class="dark:border-neutral-600 mt-4 mb-8 duration-200">
+      <hr class="dark:border-neutral-600 mt-4 mb-6 duration-200">
 
       <div class="space-y-4">
         {#each headings as heading, i}
