@@ -17,6 +17,7 @@
     const data = {
       body: bodyInput,
       author: authorInput,
+      created_at: Date.now().toString(),
       post,
     };
 
@@ -86,11 +87,11 @@
         {#each comments as comment}
           <li class="space-y-2">
             <div>
-              <h2 class="font-bold inline">{comment.author}</h2>
+              <h2 class="font-bold inline dark:text-white text-neutral">{comment.author}</h2>
               -
               <span class="font-normal text-neutral-400">{formatRelativeTime(comment.created_at)}</span>
             </div>
-            <p>{comment.body}</p>
+            <p class="dark:text-white text-neutral">{comment.body}</p>
           </li>
         {/each}
       </ul>
