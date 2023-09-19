@@ -40,12 +40,12 @@ export async function getStaticPaths() {
   });
 
   interface Properties {
-    Destination: RelationPropertyItemObjectResponse,
-    Slug: RichTextItemResponse,
-    Name: TitlePropertyItemObjectResponse,
+    Destination: { relation: RelationPropertyItemObjectResponse[] },
+    Slug: { rich_text: RichTextItemResponse[] },
+    Name: { title: RichTextItemResponse[] },
     Date: DatePropertyItemObjectResponse,
     Cover: FilesPropertyItemObjectResponse,
-    Podcast: RichTextItemResponse,
+    Podcast: { rich_text: RichTextItemResponse[] },
   }
 
   return await Promise.all(entries.results.map(async page => {
@@ -54,7 +54,7 @@ export async function getStaticPaths() {
     const properties = page.properties as unknown as Properties;
 
     const destinationPage = await notion.pages.retrieve({
-      page_id: properties.Destination.relation.id,
+      page_id: properties.Destination.relation[0].id,
     });
     const destination = isFullPage(destinationPage) && destinationPage.properties.Slug.type === "rich_text" &&  destinationPage.properties.Slug.rich_text[0].plain_text;
 
@@ -63,12 +63,12 @@ export async function getStaticPaths() {
     })).results.map(x => renderBlock(x)).join("");
 
     return {
-      params: { slug: properties.Slug.plain_text },
+      params: { slug: properties.Slug.rich_text[0].plain_text },
       props: {
-        title: properties.Name.title.plain_text,
+        title: properties.Name.title[0].plain_text,
         date: formatDate(properties.Date.date?.start ?? ""),
         cover: properties.Cover.files[0].type === "file" && properties.Cover.files[0].file.url,
-        podcast: properties.Podcast.plain_text,
+        podcast: properties.Podcast.rich_text[0].href ?? "",
         destination,
         content,
       },
