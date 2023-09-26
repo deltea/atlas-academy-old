@@ -153,7 +153,7 @@
 <!-- Navigation modal for mobile -->
 {#if navOpen}
   <nav
-    class="bg-white dark:bg-neutral text-neutral dark:text-white duration-500 h-[calc(100vh-5rem)] w-screen fixed z-[100] bottom-0 flex justify-center items-center"
+    class="bg-white dark:bg-neutral text-neutral dark:text-white duration-500 h-[calc(100dvh-5rem)] w-screen fixed z-[100] bottom-0 flex justify-center items-center"
     transition:slide>
     <div class="gap-12 flex flex-col items-center">
       <div class="text-center space-y-1">

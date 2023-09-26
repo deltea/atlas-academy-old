@@ -57,6 +57,9 @@ module.exports = {
       backgroundImage: {
         "waves": "url(/footer/waves.svg)",
         "dark-waves": "url(/footer/dark-waves.svg)"
+      },
+      height: {
+        "screen": "100dvh",
       }
     },
 	},
