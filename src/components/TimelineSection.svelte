@@ -23,12 +23,12 @@
     <ul class="w-1/2 mt-[4rem]">
       {#each leftPosts as post}
         <li>
-          <a href={`/posts/${post.fields.slug}`} class="flex flex-col h-52 group relative items-end text-right">
-            <div class="mx-sm">
+          <a href={`/posts/${post.fields.slug}`} class="flex flex-col md:h-52 h-64 group relative items-end text-right">
+            <div class="md:mx-sm mr-8">
               <h1 class="emphasis text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300">
                 {new Date(post.fields.date).toLocaleDateString()}
               </h1>
-              <h2 class="text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300">
+              <h2 class="text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300 md:text-base text-sm">
                 {post.fields.title}
                 <PostBadge type={post.fields.type} />
               </h2>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="border-neutral-400 group-hover:border-neutral dark:group-hover:border-white border-2 bg-white dark:bg-neutral w-2 h-2 rotate-45 absolute -right-1 z-10 duration-300 top-2"></div>
-            <div class="border-neutral-400 group-hover:border-neutral dark:group-hover:border-white border w-10 absolute top-3 duration-300"></div>
+            <div class="border-neutral-400 group-hover:border-neutral dark:group-hover:border-white border md:w-10 w-5 absolute top-3 duration-300"></div>
           </a>
         </li>
       {/each}
@@ -50,15 +50,15 @@
       <div class="rounded-full w-2 h-2 bg-neutral-400 absolute left-1/2 -translate-x-1/2"></div>
     </div>
 
-    <ul class="w-1/2 mt-[calc(4rem+6rem)]">
+    <ul class="w-1/2 md:mt-[calc(4rem+6rem)] mt-[calc(4rem+8rem)]">
       {#each rightPosts as post}
         <li>
-          <a href={`/posts/${post.fields.slug}`} class="flex flex-col h-52 group relative items-start">
-            <div class="mx-sm">
+          <a href={`/posts/${post.fields.slug}`} class="flex flex-col md:h-52 h-64 group relative items-start">
+            <div class="md:mx-sm ml-8">
               <h1 class="emphasis text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300">
                 {new Date(post.fields.date).toLocaleDateString()}
               </h1>
-              <h2 class="text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300">
+              <h2 class="text-neutral-400 group-hover:text-neutral dark:group-hover:text-white duration-300 md:text-base text-sm">
                 <PostBadge type={post.fields.type} />
                 {post.fields.title}
               </h2>
@@ -68,7 +68,7 @@
             </div>
 
             <div class="border-neutral-400 group-hover:border-neutral dark:group-hover:border-white border-2 bg-white dark:bg-neutral w-2 h-2 rotate-45 absolute -left-1 z-10 duration-300 top-2"></div>
-            <div class="border-neutral-400 group-hover:border-neutral dark:group-hover:border-white border w-10 absolute top-3 duration-300"></div>
+            <div class="border-neutral-400 group-hover:border-neutral dark:group-hover:border-white border md:w-10 w-5 absolute top-3 duration-300"></div>
           </a>
         </li>
       {/each}
