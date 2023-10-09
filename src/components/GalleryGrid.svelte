@@ -158,7 +158,7 @@
       </div>
 
       {#if loading}
-        <div class="bg-white dark:bg-neutral min-w-[30rem] h-[30rem] flex justify-center items-center pointer-events-auto">
+        <div class="bg-white dark:bg-neutral h-full aspect-square flex justify-center items-center pointer-events-auto">
           <iconify-icon icon="ph:spinner-bold"
             class="text-4xl animate-spin text-neutral dark:text-white"></iconify-icon>
         </div>
