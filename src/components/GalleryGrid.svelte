@@ -97,14 +97,25 @@
 {#if currentGallery}
   <section class="lg:grid lg:grid-cols-5 grid-cols-1 dark:gap-2 gap-1 duration-200 flex lg:overflow-x-hidden overflow-x-auto items-start snap-x snap-mandatory">
     {#each currentGallery as item, i (item.fields.slug)}
-      <button on:click={() => openModal(i)} class="group lg:space-y-0 space-y-4 min-w-full snap-center">
-        <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 800)}')`}
+      <button on:click={() => openModal(i)} class="group lg:space-y-0 space-y-4 min-w-full snap-center relative">
+        <img
+          src={image(item.fields.image?.fields.file?.url)}
+          alt={item.fields.image?.fields.description}
+          class="aspect-square lg:group-hover:brightness-50 duration-200"
+          loading="lazy" />
+
+        <div class="w-3/4 lg:group-hover:opacity-100 lg:group-hover:-translate-y-1/2 opacity-0 duration-200 text-white absolute left-1/2 top-1/2 -translate-x-1/2">
+          <h1 class="text-xl">{item.fields.title}</h1>
+          <small class="text-sm italic relative top-4">{item.fields.city}</small>
+        </div>
+
+        <!-- <div style:background-image={`url('${image(item.fields.image?.fields.file?.url, 800)}')`}
           class="bg-cover bg-center aspect-square lg:group-hover:bg-neutral-600 bg-blend-multiply duration-200 relative">
           <div class="w-3/4 lg:group-hover:opacity-100 lg:group-hover:-translate-y-1/2 opacity-0 duration-200 text-white absolute left-1/2 top-1/2 -translate-x-1/2">
             <h1 class="text-xl">{item.fields.title}</h1>
             <small class="text-sm italic relative top-4">{item.fields.city}</small>
           </div>
-        </div>
+        </div> -->
 
         <div class="lg:hidden block space-y-2">
           <h1 class="font-semibold text-lg">{item.fields.title}</h1>
@@ -157,6 +168,7 @@
         alt={currentPhoto.fields.title}
         class="pointer-events-auto"
         class:hidden={loading}
+        loading="lazy"
         on:load={() => loading = false}>
 
       <div class="space-y-8 w-full h-full">
