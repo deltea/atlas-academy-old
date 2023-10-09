@@ -168,7 +168,6 @@
         alt={currentPhoto.fields.title}
         class="pointer-events-auto"
         class:hidden={loading}
-        loading="lazy"
         on:load={() => loading = false}>
 
       <div class="space-y-8 w-full h-full">
